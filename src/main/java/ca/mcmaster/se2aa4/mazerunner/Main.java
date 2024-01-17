@@ -28,6 +28,13 @@ public class Main {
                 System.out.print(System.lineSeparator());
             }
 
+            if(comparePaths(config.path)){
+                System.out.println("correct path");
+            }
+            else{
+                System.out.println("incorrect path");
+            }
+
         } catch(Exception e) {
             logger.error("/!\\ An error has occured /!\\");
         }
@@ -40,6 +47,7 @@ public class Main {
         Options options = new Options();
         options.addOption("i", true, "Maze flag");
         options.addOption("p", true, "Path");
+        options.addOption("method", true, "Method of computing path");
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd_line = parser.parse(options, args);
 
@@ -51,4 +59,13 @@ public class Main {
         }
     }
 
+    private static String computePath(){
+        return "no path yet";
+    }
+
+    private static boolean comparePaths(String path){
+        return path.equals(computePath());
+    }
+
+    
 }
