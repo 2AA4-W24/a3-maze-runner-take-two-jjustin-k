@@ -29,8 +29,8 @@ public class Main {
                 System.out.print(System.lineSeparator());
             }
 
-            if(maze.comparePaths(config.path)){
-                System.out.println("correct path");
+            if(maze.comparePaths()){
+                System.out.println("corrected path");
             }
             else{
                 System.out.println("incorrect path");
