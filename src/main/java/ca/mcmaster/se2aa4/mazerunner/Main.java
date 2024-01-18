@@ -30,7 +30,7 @@ public class Main {
             }
 
             if(maze.comparePaths()){
-                System.out.println("corrected path");
+                System.out.println("correct path");
             }
             else{
                 System.out.println("incorrect path");
