@@ -7,7 +7,7 @@ public class RightHand implements ComputePath {
 
     @Override
     public String solve(String maze) {
-        return "not solved";
+        return "Path not found";
     }
 
 }
