@@ -5,25 +5,13 @@ public class Player {
 
     private Direction direction;
     public Player(){
+        setDirection(Direction.E);
     }
 
     public int[] location(Maze maze){
         for(int i = 0; i < maze.getMaze().size(); i++){
             for(int j = 0; j < maze.getMaze().get(i).size(); j++){
-                if(maze.getMaze().get(i).get(j) == 'E'){
-                    setDirection(Direction.E);
-                    return new int[] {i, j};
-                }
-                else if(maze.getMaze().get(i).get(j) == 'N'){
-                    setDirection(Direction.N);
-                    return new int[] {i, j};
-                }
-                else if(maze.getMaze().get(i).get(j) == 'S'){
-                    setDirection(Direction.S);
-                    return new int[] {i, j};
-                }
-                else if(maze.getMaze().get(i).get(j) == 'W'){
-                    setDirection(Direction.W);
+                if(maze.getMaze().get(i).get(j) == 'p'){
                     return new int[] {i, j};
                 }
             }
@@ -36,14 +24,14 @@ public class Player {
     }
 
     public void setLocation(Maze maze, int[] end_point){
-        maze.getMaze().get(end_point[0]).set(end_point[1], 'E');
+        maze.getMaze().get(end_point[0]).set(end_point[1], 'p');
     }
 
     public Direction getDirection(){
         return this.direction;
     }
 
-    private void setDirection(Direction d){
+    public void setDirection(Direction d){
         this.direction = d;
     }
 
