@@ -65,7 +65,7 @@ public class Maze {
                 if (character == '#') {
                     System.out.print('#');
                 } else if (character == ' ') {
-                    System.out.print(' ');
+                    System.out.print('_');
                 } else {
                     System.out.print('p');
                 }
@@ -78,7 +78,7 @@ public class Maze {
     public int startingPosition(){
         for(int i = 0; i < maze_map.size(); i++){
             if(maze_map.get(i).get(0) == ' '){
-                maze_map.get(i).set(0, 'W');
+                maze_map.get(i).set(0, 'p');
                 return i;
             }
         }

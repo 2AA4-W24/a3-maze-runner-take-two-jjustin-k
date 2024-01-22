@@ -1,12 +1,14 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
+
 public class Move {
 
-    private final Player player;
+    public Player player;
 
     private final Maze maze;
 
     private final Path path;
+
 
     public Move(Player p1, Maze maze1, Path path1){
         player = p1;
@@ -31,8 +33,14 @@ public class Move {
         }
     }
 
-    private boolean canMove(int[] result){
+   public boolean canMove(){
+       int[] result = nextStep();
+
         if(result[0] >= 0 && result[0] < maze.getMaze().size() && result[1] >= 0 && result[1] < maze.getMaze().size() ){
+            if(maze.getMaze().get(result[0]).get(result[1]).toString().equals("#")) {
+
+                return false;
+            }
             return maze.getMaze().get(result[0]).get(result[1]) == ' ';
         }
         return false;
@@ -40,11 +48,57 @@ public class Move {
 
     public void move(){
         int[] result = nextStep();
-        if(canMove(result)){
-           player.setIcon(maze,' ');
-           player.setLocation(maze, result);
-           path.add_to_path();
+        if(canMove()){
+            player.setIcon(maze,' ');
+            player.setLocation(maze, result);
+            path.add_to_path();
         }
+
     }
+
+    public void turnRight(){
+        switch (player.getDirection()) {
+            case E -> {
+                player.setDirection(Player.Direction.S);
+
+            }
+            case N -> {
+                player.setDirection(Player.Direction.E);
+
+            }
+            case W -> {
+                player.setDirection(Player.Direction.N);
+
+            }
+            default -> {
+                player.setDirection(Player.Direction.W);
+
+            }
+        }
+
+    }
+
+    public void turnLeft(){
+        switch (player.getDirection()) {
+            case E -> {
+                player.setDirection(Player.Direction.N);
+
+            }
+            case N -> {
+                player.setDirection(Player.Direction.W);
+
+            }
+            case W -> {
+                player.setDirection(Player.Direction.S);
+
+            }
+            case S-> {
+                player.setDirection(Player.Direction.E);
+
+            }
+        }
+
+    }
+
 
 }
