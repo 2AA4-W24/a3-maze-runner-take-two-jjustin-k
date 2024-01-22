@@ -1,7 +1,7 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class Maze {
 
     private static List<List<Character>> map() throws IOException {
         List<List<Character>> mappings = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader("examples/straight.maz.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader(Maze.maze));
         String line;
         while ((line = reader.readLine()) != null) {
             List<Character> row = getCharacters(line, mappings);

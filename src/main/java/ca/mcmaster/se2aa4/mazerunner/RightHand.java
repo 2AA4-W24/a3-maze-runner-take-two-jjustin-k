@@ -1,10 +1,8 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
+
 
 public class RightHand implements ComputePath {
 
@@ -16,7 +14,7 @@ public class RightHand implements ComputePath {
         Path solution = new Path("");
         Player p1 = new Player();
         int start = maze.startingPosition();
-        
+
         p1.setLocation(maze, new int[] {start, 0});
         int end = maze.endPosition();
         int[] end_location = {end, maze.getMaze().size() -1};
@@ -29,8 +27,8 @@ public class RightHand implements ComputePath {
             maze.display();
             System.out.println();
             System.out.println();
-
         }
+        System.out.println(solution.getPath());
         return solution;
 
     }

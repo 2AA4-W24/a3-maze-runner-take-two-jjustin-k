@@ -14,24 +14,12 @@ public class Main {
         try {
             Configuration config = configure(args);
             logger.info("** Starting Maze Runner");
-            BufferedReader reader = new BufferedReader(new FileReader(config.maze));
             logger.info("**** Reading the maze from file " + config.maze);
-            String line;
+
             Maze maze = new Maze(config.maze);
 
             Path path = new Path(config.path);
-            /*
-            while ((line = reader.readLine()) != null) {
-                for (int idx = 0; idx < line.length(); idx++) {
-                    if (line.charAt(idx) == '#') {
-                        System.out.print("WALL ");
-                    } else if (line.charAt(idx) == ' ') {
-                        System.out.print("     ");
-                    }
-                }
-                System.out.print(System.lineSeparator());
-            }
-            */
+
             if(maze.comparePaths(path)){
                 System.out.println("correct path");
             }
