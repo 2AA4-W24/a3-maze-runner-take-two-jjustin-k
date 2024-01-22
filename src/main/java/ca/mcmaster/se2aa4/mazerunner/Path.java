@@ -15,5 +15,8 @@ public class Path {
         path += "F";
     }
 
+    public void add_to_path(char ch){
+        path += String.valueOf(ch);
+    }
 
 }
