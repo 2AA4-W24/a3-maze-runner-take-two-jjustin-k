@@ -23,8 +23,9 @@ public class Maze {
     }
 
     public Path solve() throws IOException {
-        ComputePath solution = new RightHand();
-        return solution.solve(new Maze(maze));
+        ComputePath computation = new RightHand();
+        Path solution = computation.solve(new Maze(maze));
+        return solution;
     }
 
     private static List<List<Character>> map() throws IOException {
@@ -90,5 +91,8 @@ public class Maze {
         return 0;
     }
 
+    public int size(){
+        return maze_map.size();
+    }
 
 }

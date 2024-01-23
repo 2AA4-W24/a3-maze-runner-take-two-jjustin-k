@@ -10,7 +10,7 @@ public class VerifyPath {
     public boolean verify(Maze maze, Path path){
         Player player = new Player();
         player.setLocation(maze, new int[] {maze.startingPosition(), 0});
-        int[] end = new int[]{maze.endPosition(), maze.getMaze().size() - 1};
+        int[] end = new int[]{maze.endPosition(), maze.size() - 1};
         Move move = new Move(player, maze, path);
         int len = path.getPath().length();
         for(int i = 0; i < len; i++){
