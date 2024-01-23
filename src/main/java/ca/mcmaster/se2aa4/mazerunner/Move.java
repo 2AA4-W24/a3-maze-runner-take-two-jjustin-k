@@ -36,7 +36,7 @@ public class Move {
    public boolean canMove(){
        int[] result = nextStep();
 
-        if(result[0] >= 0 && result[0] < maze.getMaze().size() && result[1] >= 0 && result[1] < maze.getMaze().size() ){
+        if(result[0] >= 0 && result[0] < maze.size() && result[1] >= 0 && result[1] < maze.size() ){
             if(maze.getMaze().get(result[0]).get(result[1]).toString().equals("#")) {
 
                 return false;

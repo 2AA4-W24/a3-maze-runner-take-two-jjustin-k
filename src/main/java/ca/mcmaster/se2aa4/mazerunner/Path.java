@@ -20,33 +20,51 @@ public class Path {
     }
 
     public void changeForm(){
+        String expanded = "";
         boolean has_num = false;
         for(int i = 0; i < path.length(); i++){
-            if(path.charAt(i) != 'F' || path.charAt(i) != 'R' || path.charAt(i) != 'L'){
+            if(Character.isDigit(path.charAt(i)) && path.charAt(i) != ' '){
                 has_num = true;
                 break;
             }
         }
         if(has_num){
-            String expanded = "";
+
+            String number = "";
             for(int i = 0; i < path.length(); i++){
-                if(path.charAt(i) != 'F' || path.charAt(i) != 'R' || path.charAt(i) != 'L'){
-                   switch (path.charAt(i)){
-                       case '2' -> {
-                           expanded += path.charAt(i+1) + String.valueOf(path.charAt(i+1)) ;
-                       }
-                       case '3' -> {
-                           expanded += path.charAt(i+1) + String.valueOf(path.charAt(i+1)) + path.charAt(i+1);
-                       }
-                       case '4' -> {
-                           for(int j = 0; j < 4; j++) {
-                               expanded += String.valueOf(path.charAt(i+1));
-                           }
-                       }
-                   }
+                if(Character.isDigit(path.charAt(i)) && path.charAt(i) != ' '){
+                   number += path.charAt(i);
+                }
+                else{
+                    if(!number.isEmpty()){
+                        for(int j = 0; j < Integer.parseInt(number); j++){
+                            if(path.charAt(i) == 'F'){
+                                expanded += 'F';
+                            }
+                            else if(path.charAt(i) == 'R'){
+                                expanded += 'R';
+                            }
+                            else if(path.charAt(i) == 'L'){
+                                expanded += 'L';
+                            }
+                        }
+                        number = "";
+                    }
+                    else{
+                        if(path.charAt(i) == 'F'){
+                            expanded += 'F';
+                        }
+                        else if(path.charAt(i) == 'R'){
+                            expanded += 'R';
+                        }
+                        else if(path.charAt(i) == 'L'){
+                            expanded += 'L';
+                        }
+                    }
                 }
             }
             path = expanded;
+
         }
     }
 
