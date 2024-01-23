@@ -19,13 +19,15 @@ public class Main {
             Maze maze = new Maze(config.maze);
 
             Path path = new Path(config.path);
+            VerifyPath validity = new VerifyPath();
 
-            if(maze.comparePaths(path)){
+            if(validity.verify(maze, path)){
                 System.out.println("correct path");
             }
             else{
                 System.out.println("incorrect path");
             }
+            System.out.println(maze.solve().getPath());;
 
         } catch(Exception e) {
             logger.error(e);

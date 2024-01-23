@@ -4,5 +4,5 @@ import java.io.IOException;
 
 public interface ComputePath {
 
-    Path solve(Maze maze) throws IOException;
+    Path solve(Maze maze);
 }
