@@ -17,15 +17,12 @@ public class Maze {
         maze_map = map();
     }
 
-    public boolean comparePaths(Path path) throws IOException {
-        return path.getPath().equals(computePath().getPath());
-    }
 
     public List<List<Character>> getMaze() {
         return maze_map;
     }
 
-    private static Path computePath() throws IOException {
+    public Path solve() throws IOException {
         ComputePath solution = new RightHand();
         return solution.solve(new Maze(maze));
     }
@@ -59,7 +56,7 @@ public class Maze {
         return row;
     }
 
-    public void display() throws IOException {
+    public void display(){
         for (List<Character> characters : maze_map) {
             for (Character character : characters) {
                 if (character == '#') {
@@ -92,4 +89,6 @@ public class Maze {
         }
         return 0;
     }
+
+
 }
