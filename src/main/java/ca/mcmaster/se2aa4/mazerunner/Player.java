@@ -1,11 +1,13 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
+import java.util.List;
+
 public class Player {
 
 
     private Direction direction;
-    public Player(){
-        setDirection(Direction.E);
+    public Player(Direction d){
+        setDirection(d);
     }
 
     public int[] location(Maze maze){
@@ -33,6 +35,17 @@ public class Player {
 
     public void setDirection(Direction d){
         this.direction = d;
+    }
+
+    public void resetLocation(Maze maze){
+        int[] current = location(maze);
+        for(List<Character> tile : maze.getMaze()){
+            for(Character ch : tile){
+                if(ch == 'p'){
+                    ch = ' ';
+                }
+            }
+        }
     }
 
     public enum Direction{

@@ -24,8 +24,7 @@ public class Maze {
 
     public Path solve() throws IOException {
         ComputePath computation = new RightHand();
-        Path solution = computation.solve(new Maze(maze));
-        return solution;
+        return computation.solve(new Maze(maze));
     }
 
     private static List<List<Character>> map() throws IOException {
@@ -76,7 +75,6 @@ public class Maze {
     public int startingPosition(){
         for(int i = 0; i < maze_map.size(); i++){
             if(maze_map.get(i).get(0) == ' '){
-                maze_map.get(i).set(0, 'p');
                 return i;
             }
         }
@@ -93,6 +91,17 @@ public class Maze {
 
     public int size(){
         return maze_map.size();
+    }
+
+    public void clean(){
+        for(List<Character> list : maze_map){
+            for(Character ch : list){
+                if(ch == 'p'){
+                    int idx = list.indexOf('p');
+                    list.set(idx, ' ');
+                }
+            }
+        }
     }
 
 }

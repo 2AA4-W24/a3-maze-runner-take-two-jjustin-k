@@ -3,6 +3,7 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 
 import org.apache.commons.cli.*;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,22 +13,21 @@ public class Main {
 
     public static void main(String[] args) {
         try {
+
             Configuration config = configure(args);
             logger.info("** Starting Maze Runner");
             logger.info("**** Reading the maze from file " + config.maze);
-
             Maze maze = new Maze(config.maze);
 
             Path path = new Path(config.path);
             VerifyPath validity = new VerifyPath();
-
+            path.changeForm();
             if(validity.verify(maze, path)){
                 System.out.println("correct path");
             }
             else{
                 System.out.println("incorrect path");
             }
-            System.out.println(maze.solve().getPath());;
 
         } catch(Exception e) {
             logger.error(e);
