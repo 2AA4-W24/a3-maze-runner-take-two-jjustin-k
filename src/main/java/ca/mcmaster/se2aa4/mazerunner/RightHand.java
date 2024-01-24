@@ -35,20 +35,20 @@ public class RightHand implements ComputePath {
         move.turnRight();
 
         if(move.canMove()){
-           // solution.add_to_path(' ');
+
             solution.add_to_path('R');
-           // solution.add_to_path(' ');
+
         }
         else {
             move.turnLeft();
             if(!move.canMove()){
                 while (!rightWall() || !move.canMove()) {
                     move.turnRight();
-                   // solution.add_to_path(' ');
+
                     solution.add_to_path('R');
 
                 }
-               // solution.add_to_path(' ');
+
             }
 
         }
