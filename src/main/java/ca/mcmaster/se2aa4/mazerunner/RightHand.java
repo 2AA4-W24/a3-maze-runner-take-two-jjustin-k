@@ -2,6 +2,8 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 import java.util.Arrays;
 
+import static ca.mcmaster.se2aa4.mazerunner.Player.Direction.E;
+
 
 public class RightHand implements ComputePath {
 
@@ -12,22 +14,19 @@ public class RightHand implements ComputePath {
     @Override
     public Path solve(Maze maze) {
         Path solution = new Path("");
-        Player p1 = new Player();
+        Player p1 = new Player(E);
         p1.setLocation(maze, new int[] {maze.startingPosition(), 0});
-        int[] end_location = {maze.endPosition(), maze.getMaze().size() -1};
+        int[] end_location = {maze.endPosition(), maze.size() -1};
         move = new Move(p1, maze, solution);
         while(!Arrays.toString(p1.location(maze)).equals(Arrays.toString(end_location))){
             if(rightWall() && move.canMove()){
                 move.move();
+                solution.add_to_path();
             }
             else{
                 tryOther(solution);
             }
         }
-        maze.display();
-        System.out.println();
-        System.out.println(solution.getPath());
-
         return solution;
     }
 
@@ -36,24 +35,25 @@ public class RightHand implements ComputePath {
         move.turnRight();
 
         if(move.canMove()){
-            solution.add_to_path(' ');
+           // solution.add_to_path(' ');
             solution.add_to_path('R');
-            solution.add_to_path(' ');
+           // solution.add_to_path(' ');
         }
         else {
             move.turnLeft();
             if(!move.canMove()){
                 while (!rightWall() || !move.canMove()) {
                     move.turnRight();
-                    solution.add_to_path(' ');
+                   // solution.add_to_path(' ');
                     solution.add_to_path('R');
 
                 }
-                solution.add_to_path(' ');
+               // solution.add_to_path(' ');
             }
 
         }
         move.move();
+        solution.add_to_path();
 
     }
 
