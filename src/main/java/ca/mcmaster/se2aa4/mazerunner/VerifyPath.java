@@ -41,7 +41,9 @@ public class VerifyPath {
 
     public boolean verify(Maze maze, Path path){
         coords = maze.westEastCoords();
-        path.toCanonicalForm();
+        if (path.isFactored()){
+            path.changeForm();
+        }
         Player player = new Player(E);
         if(startWest(maze, path, player)){
             return true;

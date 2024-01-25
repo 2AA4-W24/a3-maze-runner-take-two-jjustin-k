@@ -15,7 +15,7 @@ public class Path {
         path += String.valueOf(ch);
     }
 
-    public void toCanonicalForm(){
+    private void toCanonicalForm(){
         StringBuilder expanded = new StringBuilder();
         if(isFactored()){
             StringBuilder number = new StringBuilder();
@@ -55,7 +55,7 @@ public class Path {
         }
     }
 
-    public void toFactoredForm(){
+    private void toFactoredForm(){
         StringBuilder factored = new StringBuilder();
         if(!isFactored()){
             char current = 'z';
@@ -85,7 +85,16 @@ public class Path {
         }
     }
 
-    private boolean isFactored(){
+    public void changeForm(){
+        if(isFactored()){
+            toCanonicalForm();
+        }
+        else {
+            toFactoredForm();
+        }
+    }
+
+    public boolean isFactored(){
         boolean has_num = false;
         for(int i = 0; i < path.length(); i++){
             if(Character.isDigit(path.charAt(i)) && path.charAt(i) != ' '){

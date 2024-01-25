@@ -55,6 +55,15 @@ public class Movement {
 
     }
 
+    public void move(char ch){
+        int[] result = nextStep();
+        if(canMove()){
+            player.setIcon(maze,ch);
+            player.setLocation(maze, result);
+            path.add_to_path('F');
+        }
+    }
+
     public void turnRight(){
         switch (player.getDirection()) {
             case E -> {

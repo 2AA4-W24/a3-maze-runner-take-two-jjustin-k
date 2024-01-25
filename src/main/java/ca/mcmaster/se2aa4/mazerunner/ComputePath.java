@@ -5,5 +5,5 @@ public interface ComputePath {
     Path solution = new Path("");
     Player player = new Player(Player.Direction.E);
 
-    Path solve(Maze maze);
+    Path solve();
 }

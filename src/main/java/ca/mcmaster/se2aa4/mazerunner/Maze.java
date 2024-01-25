@@ -26,19 +26,19 @@ public class Maze {
         ComputePath computation;
         Path solution;
         if(method == null){
-            computation = new RightHand();
-            solution = computation.solve(new Maze(maze));
+            computation = new RightHand(new Maze(maze));
+            solution = computation.solve();
             System.out.println(solution.getPath());
         }
         else {
             if(method.equals("righthand")){
-                computation = new RightHand();
-                solution = computation.solve(new Maze(maze));
+                computation = new RightHand(new Maze(maze));
+                solution = computation.solve();
                 System.out.println(solution.getPath());
             }
             else if (method.equals("tremaux")){
-                computation = new Tremaux();
-                solution = computation.solve(new Maze(maze));
+                computation = new Tremaux(new Maze(maze));
+                solution = computation.solve();
                 System.out.println(solution.getPath());
             }
         }

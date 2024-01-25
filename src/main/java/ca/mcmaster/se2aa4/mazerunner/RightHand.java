@@ -9,16 +9,19 @@ public class RightHand implements ComputePath {
 
     private Movement movement;
 
-    public RightHand(){
+    private final Maze maze;
+
+    private int [] coords;
+
+    public RightHand(Maze user_maze){
+        maze = user_maze;
     }
 
     @Override
-    public Path solve(Maze maze) {
-        int[] coords = maze.westEastCoords();
-        player.setLocation(maze, new int[] {coords[0], 0});
+    public Path solve() {
+        startPath();
         int[] end_location = {coords[1], maze.size() -1};
-        movement = new Movement(player, maze, solution);
-        while(!Arrays.toString(player.location(maze)).equals(Arrays.toString(end_location))){
+        while(!Arrays.equals(player.location(maze), end_location)){
             maze.display();
             if(rightWall() && movement.canMove()){
                 movement.move();
@@ -28,10 +31,15 @@ public class RightHand implements ComputePath {
                 tryOther();
             }
         }
-        solution.toFactoredForm();
+        solution.changeForm();
         return solution;
     }
 
+    private void startPath(){
+        coords = maze.westEastCoords();
+        player.setLocation(maze, new int[] {coords[0], 0});
+        movement = new Movement(player, maze, solution);
+    }
     private void tryOther(){
 
         movement.turnRight();
