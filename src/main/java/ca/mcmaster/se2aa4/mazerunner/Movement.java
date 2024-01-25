@@ -33,7 +33,7 @@ public class Movement {
         }
     }
 
-   public boolean canMove(){
+    public boolean canMove(){
        int[] result = nextStep();
 
         if(result[0] >= 0 && result[0] < maze.size() && result[1] >= 0 && result[1] < maze.size() ){
@@ -50,6 +50,7 @@ public class Movement {
         if(canMove()){
             player.setIcon(maze,' ');
             player.setLocation(maze, result);
+            path.add_to_path('F');
         }
 
     }

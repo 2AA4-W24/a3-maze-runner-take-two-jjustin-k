@@ -90,7 +90,7 @@ public class Maze {
 
     }
 
-    public int startingPosition(){
+    private int westPosition(){
         for(int i = 0; i < maze_map.size(); i++){
             if(maze_map.get(i).get(0) == ' '){
                 return i;
@@ -98,7 +98,7 @@ public class Maze {
         }
         return 0;
     }
-    public int endPosition(){
+    private int eastPosition(){
         for(int i = 0; i < maze_map.size(); i++){
             if(maze_map.get(i).get(maze_map.size() -1) == ' '){
                 return i;
@@ -107,6 +107,9 @@ public class Maze {
         return 0;
     }
 
+    public int[] westEastCoords(){
+        return new int[] {westPosition(), eastPosition()};
+    }
     public int size(){
         return maze_map.size();
     }

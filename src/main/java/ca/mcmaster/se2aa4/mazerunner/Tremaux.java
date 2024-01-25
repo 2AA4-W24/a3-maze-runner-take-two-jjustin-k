@@ -22,8 +22,9 @@ public class Tremaux implements ComputePath{
     @Override
     public Path solve(Maze user_maze) {
         maze = user_maze;
-        player.setLocation(maze, new int[] {maze.startingPosition(), 0});
-        int[] end_location = {maze.endPosition(), maze.size() -1};
+        int[] coords = maze.westEastCoords();
+        player.setLocation(maze, new int[] {coords[0], 0});
+        int[] end_location = {coords[1], maze.size() -1};
         movement = new Movement(player, maze, solution);
         int c = 0;
         while(!Arrays.toString(player.location(maze)).equals(Arrays.toString(end_location))){
@@ -175,8 +176,6 @@ public class Tremaux implements ComputePath{
             movement.move();
         }
     }
-
-
 
 
     private boolean turnAhead(){

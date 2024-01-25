@@ -8,18 +8,21 @@ import static ca.mcmaster.se2aa4.mazerunner.Player.Direction.E;
 public class RightHand implements ComputePath {
 
     private Movement movement;
+
     public RightHand(){
     }
 
     @Override
     public Path solve(Maze maze) {
-        player.setLocation(maze, new int[] {maze.startingPosition(), 0});
-        int[] end_location = {maze.endPosition(), maze.size() -1};
+        int[] coords = maze.westEastCoords();
+        player.setLocation(maze, new int[] {coords[0], 0});
+        int[] end_location = {coords[1], maze.size() -1};
         movement = new Movement(player, maze, solution);
         while(!Arrays.toString(player.location(maze)).equals(Arrays.toString(end_location))){
+            maze.display();
             if(rightWall() && movement.canMove()){
                 movement.move();
-                solution.add_to_path();
+
             }
             else{
                 tryOther();
@@ -42,17 +45,16 @@ public class RightHand implements ComputePath {
             movement.turnLeft();
             if(!movement.canMove()){
                 while (!rightWall() || !movement.canMove()) {
-                    movement.turnRight();
+                    movement.turnLeft();
 
-                    solution.add_to_path('R');
+                    solution.add_to_path('L');
 
                 }
-
             }
 
         }
         movement.move();
-        solution.add_to_path();
+
 
     }
 

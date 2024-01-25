@@ -4,15 +4,11 @@ public class Path {
 
     private String path;
     public Path(String user_path){
-        path = user_path;
+        this.path = user_path;
     }
 
     public String getPath(){
         return path;
-    }
-
-    public void add_to_path(){
-        path += "F";
     }
 
     public void add_to_path(char ch){

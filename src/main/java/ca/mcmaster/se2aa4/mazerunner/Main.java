@@ -14,17 +14,17 @@ public class Main {
     public static void main(String[] args) {
         try {
             Configuration config = configure(args);
-            //logger.info("** Starting Maze Runner");
-            //logger.info("**** Reading the maze from file " + config.maze);
+            logger.info("** Starting Maze Runner");
+            logger.info("**** Reading the maze from file " + config.maze);
             Initializer initializer = new Initializer(config.maze, config.path, config.method);
 
         } catch(Exception e) {
             logger.error(e);
             logger.error("/!\\ An error has occured /!\\");
         }
-        //logger.info("**** Computing path");
-        //logger.error("PATH NOT COMPUTED");
-       // logger.info("** End of MazeRunner");
+        logger.info("**** Computing path");
+        logger.error("PATH NOT COMPUTED");
+        logger.info("** End of MazeRunner");
     }
 
     private static Configuration configure(String[] args) throws ParseException{
