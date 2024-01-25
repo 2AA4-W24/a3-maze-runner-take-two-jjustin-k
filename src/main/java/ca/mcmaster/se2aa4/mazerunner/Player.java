@@ -37,16 +37,6 @@ public class Player {
         this.direction = d;
     }
 
-    public void resetLocation(Maze maze){
-        int[] current = location(maze);
-        for(List<Character> tile : maze.getMaze()){
-            for(Character ch : tile){
-                if(ch == 'p'){
-                    ch = ' ';
-                }
-            }
-        }
-    }
 
     public enum Direction{
         N,

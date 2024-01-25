@@ -1,7 +1,7 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 
-public class Move {
+public class Movement {
 
     public Player player;
 
@@ -10,13 +10,13 @@ public class Move {
     private final Path path;
 
 
-    public Move(Player p1, Maze maze1, Path path1){
+    public Movement(Player p1, Maze maze1, Path path1){
         player = p1;
         maze = maze1;
         path = path1;
     }
 
-    private int[] nextStep(){
+    public int[] nextStep(){
         switch(player.getDirection()){
             case N-> {
                 return new int[] {player.location(maze)[0] - 1, player.location(maze)[1]};
@@ -38,12 +38,11 @@ public class Move {
 
         if(result[0] >= 0 && result[0] < maze.size() && result[1] >= 0 && result[1] < maze.size() ){
             if(maze.getMaze().get(result[0]).get(result[1]).toString().equals("#")) {
-
                 return false;
             }
-            return maze.getMaze().get(result[0]).get(result[1]) == ' ';
+            return maze.getMaze().get(result[0]).get(result[1]) == ' ' || maze.getMaze().get(result[0]).get(result[1]) == '~';
         }
-        return false;
+        return true;
     }
 
     public void move(){

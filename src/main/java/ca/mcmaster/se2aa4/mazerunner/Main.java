@@ -13,29 +13,18 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-
             Configuration config = configure(args);
-            logger.info("** Starting Maze Runner");
-            logger.info("**** Reading the maze from file " + config.maze);
-            Maze maze = new Maze(config.maze);
-
-            Path path = new Path(config.path);
-            VerifyPath validity = new VerifyPath();
-            path.changeForm();
-            if(validity.verify(maze, path)){
-                System.out.println("correct path");
-            }
-            else{
-                System.out.println("incorrect path");
-            }
+            //logger.info("** Starting Maze Runner");
+            //logger.info("**** Reading the maze from file " + config.maze);
+            Initializer initializer = new Initializer(config.maze, config.path, config.method);
 
         } catch(Exception e) {
             logger.error(e);
             logger.error("/!\\ An error has occured /!\\");
         }
-        logger.info("**** Computing path");
-        logger.error("PATH NOT COMPUTED");
-        logger.info("** End of MazeRunner");
+        //logger.info("**** Computing path");
+        //logger.error("PATH NOT COMPUTED");
+       // logger.info("** End of MazeRunner");
     }
 
     private static Configuration configure(String[] args) throws ParseException{
@@ -46,10 +35,10 @@ public class Main {
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd_line = parser.parse(options, args);
 
-        return new Configuration(cmd_line.getOptionValue("i"), cmd_line.getOptionValue("p"));
+        return new Configuration(cmd_line.getOptionValue("i"), cmd_line.getOptionValue("p"), cmd_line.getOptionValue("method"));
     }
 
-    private record Configuration(String maze, String path){
+    private record Configuration(String maze, String path, String method){
         Configuration{
         }
     }

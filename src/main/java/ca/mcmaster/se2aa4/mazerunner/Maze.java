@@ -22,9 +22,26 @@ public class Maze {
         return maze_map;
     }
 
-    public Path solve() throws IOException {
-        ComputePath computation = new RightHand();
-        return computation.solve(new Maze(maze));
+    public void solve(Method method) throws IOException {
+        ComputePath computation;
+        Path solution;
+        if(method == null){
+            computation = new RightHand();
+            solution = computation.solve(new Maze(maze));
+            System.out.println(solution.getPath());
+        }
+        else {
+            if(method.equals("righthand")){
+                computation = new RightHand();
+                solution = computation.solve(new Maze(maze));
+                System.out.println(solution.getPath());
+            }
+            else if (method.equals("tremaux")){
+                computation = new Tremaux();
+                solution = computation.solve(new Maze(maze));
+                System.out.println(solution.getPath());
+            }
+        }
     }
 
     private static List<List<Character>> map() throws IOException {
@@ -57,6 +74,7 @@ public class Maze {
     }
 
     public void display(){
+        //Used to keep track of position
         for (List<Character> characters : maze_map) {
             for (Character character : characters) {
                 if (character == '#') {
@@ -64,7 +82,7 @@ public class Maze {
                 } else if (character == ' ') {
                     System.out.print('_');
                 } else {
-                    System.out.print('p');
+                    System.out.print(character);
                 }
             }
             System.out.println();

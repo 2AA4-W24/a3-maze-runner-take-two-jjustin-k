@@ -1,7 +1,5 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-
-import java.io.IOException;
 import java.util.Arrays;
 
 import static ca.mcmaster.se2aa4.mazerunner.Player.Direction.*;
@@ -13,23 +11,24 @@ public class VerifyPath {
     private boolean verify(Maze maze, Path path, Player player, int[] start, int[] end){
 
         player.setLocation(maze, start);
-        Move move = new Move(player, maze, path);
-        int len = path.getPath().length();
+        Movement movement = new Movement(player, maze, path);
+        String raw_path = path.getPath();
+        int len = raw_path.length();
         for(int i = 0; i < len; i++){
 
-            if(path.getPath().charAt(i) == 'F'){
-                if(move.canMove()){
-                    move.move();
+            if(raw_path.charAt(i) == 'F'){
+                if(movement.canMove()){
+                    movement.move();
                 }
                 else{
                     return false;
                 }
             }
-            else if(path.getPath().charAt(i) == 'R'){
-                move.turnRight();
+            else if(raw_path.charAt(i) == 'R'){
+                movement.turnRight();
             }
-            else if(path.getPath().charAt(i) == 'L'){
-                move.turnLeft();
+            else if(raw_path.charAt(i) == 'L'){
+                movement.turnLeft();
             }
         }
 
@@ -37,19 +36,16 @@ public class VerifyPath {
     }
 
     public boolean verify(Maze maze, Path path){
+        path.toCanonicalForm();
         Player player = new Player(E);
         if(startWest(maze, path, player)){
-            player.resetLocation(maze);
+
             return true;
         }
         else{
             maze.clean();
-            if(startEast(maze, path, player)){
-                player.resetLocation(maze);
-                return true;
-            }
+            return startEast(maze, path, player);
         }
-        return false;
     }
 
     private boolean startWest(Maze maze, Path path, Player player){

@@ -1,8 +1,9 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-import java.io.IOException;
-
 public interface ComputePath {
+
+    Path solution = new Path("");
+    Player player = new Player(Player.Direction.E);
 
     Path solve(Maze maze);
 }
