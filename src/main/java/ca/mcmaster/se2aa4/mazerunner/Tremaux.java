@@ -97,6 +97,7 @@ public class Tremaux implements ComputePath{
         }
         return false;
     }
+
     private void findOpening(){
         movement.turnRight();
         if(movement.canMove() && nextChar(movement.nextStep()) != single_mark){
@@ -122,7 +123,7 @@ public class Tremaux implements ComputePath{
         movement.move(double_mark);
         maze.display();
 
-       
+
     }
 
     private Character nextChar(int[] tile){

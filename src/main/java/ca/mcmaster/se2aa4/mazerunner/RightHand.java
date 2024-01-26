@@ -2,9 +2,6 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 import java.util.Arrays;
 
-import static ca.mcmaster.se2aa4.mazerunner.Player.Direction.E;
-
-
 public class RightHand implements ComputePath {
 
     private Movement movement;
@@ -22,9 +19,9 @@ public class RightHand implements ComputePath {
         startPath();
         int[] end_location = {coords[1], maze.size() -1};
         while(!Arrays.equals(player.location(maze), end_location)){
-            maze.display();
             if(rightWall() && movement.canMove()){
                 movement.move();
+                solution.add_to_path('F');
 
             }
             else{
@@ -62,6 +59,7 @@ public class RightHand implements ComputePath {
 
         }
         movement.move();
+        solution.add_to_path('F');
 
 
     }

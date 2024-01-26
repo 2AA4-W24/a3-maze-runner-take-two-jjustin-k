@@ -50,7 +50,6 @@ public class Movement {
         if(canMove()){
             player.setIcon(maze,' ');
             player.setLocation(maze, result);
-            path.add_to_path('F');
         }
 
     }

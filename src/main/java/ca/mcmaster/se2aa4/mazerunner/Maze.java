@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Maze {
@@ -52,6 +51,13 @@ public class Maze {
             List<Character> row = getCharacters(line, mappings);
             mappings.add(row);
         }
+        for(List<Character> list : mappings){
+            if(list.size() != mappings.get(0).size()){
+                while(list.size() != mappings.get(0).size()){
+                    list.add(' ');
+                }
+            }
+        }
         return mappings;
     }
 
@@ -65,11 +71,7 @@ public class Maze {
                 row.add(' ');
             }
         }
-        if(Arrays.toString(new List[]{row}).equals("[[]]")){
-            for(int i = 0; i < mappings.get(0).size(); i++){
-                row.add(' ');
-            }
-        }
+
         return row;
     }
 
@@ -114,15 +116,5 @@ public class Maze {
         return maze_map.size();
     }
 
-    public void clean(){
-        for(List<Character> list : maze_map){
-            for(Character ch : list){
-                if(ch == 'p'){
-                    int idx = list.indexOf('p');
-                    list.set(idx, ' ');
-                }
-            }
-        }
-    }
 
 }

@@ -25,8 +25,8 @@ public class Initializer {
 
     private void initialize() throws IOException {
         if(path != null){
-            VerifyPath validity = new VerifyPath();
-            if(validity.verify(maze, path)){
+            VerifyPath validity = new VerifyPath(maze, path);
+            if(validity.verify()){
                 System.out.println("correct path");
             }
             else{
