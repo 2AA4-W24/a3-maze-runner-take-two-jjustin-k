@@ -2,70 +2,68 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 import java.util.Arrays;
 
-import static ca.mcmaster.se2aa4.mazerunner.Player.Direction.E;
-
-
 public class RightHand implements ComputePath {
 
-    private Move move;
-    public RightHand(){
+    private Movement movement;
+
+    private final Maze maze;
+
+    private int [] coords;
+
+    public RightHand(Maze user_maze){
+        maze = user_maze;
     }
 
     @Override
-    public Path solve(Maze maze) {
-        Path solution = new Path("");
-        Player p1 = new Player(E);
-        p1.setLocation(maze, new int[] {maze.startingPosition(), 0});
-        int[] end_location = {maze.endPosition(), maze.size() -1};
-        move = new Move(p1, maze, solution);
-        while(!Arrays.toString(p1.location(maze)).equals(Arrays.toString(end_location))){
-            if(rightWall() && move.canMove()){
-                move.move();
-                solution.add_to_path();
+    public Path solve() {
+        startPath();
+        int[] end_location = {coords[1], maze.size() -1};
+        while(!Arrays.equals(player.location(maze), end_location)){
+            if(rightWall() && movement.canMove()){
+                movement.move();
+                solution.add_to_path('F');
             }
             else{
-                tryOther(solution);
+                tryOther();
             }
         }
+        solution.changeForm();
         return solution;
     }
 
-    private void tryOther(Path solution){
-
-        move.turnRight();
-
-        if(move.canMove()){
-
+    private void startPath(){
+        coords = maze.westEastCoords();
+        player.setLocation(maze, new int[] {coords[0], 0});
+        movement = new Movement(player, maze);
+    }
+    private void tryOther(){
+        movement.turnRight();
+        if(movement.canMove()){
             solution.add_to_path('R');
-
         }
         else {
-            move.turnLeft();
-            if(!move.canMove()){
-                while (!rightWall() || !move.canMove()) {
-                    move.turnRight();
+            movement.turnLeft();
+            if(!movement.canMove()){
 
-                    solution.add_to_path('R');
-
+                while (!rightWall() || !movement.canMove()) {
+                    movement.turnLeft();
+                    solution.add_to_path('L');
                 }
-
             }
 
         }
-        move.move();
-        solution.add_to_path();
-
+        movement.move();
+        solution.add_to_path('F');
     }
 
     private boolean rightWall(){
-        move.turnRight();
-        if(move.canMove()){
-            move.turnLeft();
+        movement.turnRight();
+        if(movement.canMove()){
+            movement.turnLeft();
             return false;
-
         }
         else {
-            move.turnLeft();
+            movement.turnLeft();
             return true;
         }
     }

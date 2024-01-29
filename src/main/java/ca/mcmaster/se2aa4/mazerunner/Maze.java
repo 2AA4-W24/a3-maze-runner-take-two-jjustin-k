@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Maze {
@@ -17,14 +16,21 @@ public class Maze {
         maze_map = map();
     }
 
-
     public List<List<Character>> getMaze() {
         return maze_map;
     }
 
-    public Path solve() throws IOException {
-        ComputePath computation = new RightHand();
-        return computation.solve(new Maze(maze));
+    public void solve() throws IOException {
+        ComputePath computation;
+        Path solution;
+        computation = new RightHand(new Maze(maze));
+        solution = computation.solve();
+        System.out.println(solution.getPath());
+    }
+
+    public boolean verify(Path path) throws IOException {
+        VerifyPath validity = new VerifyPath(new Maze(maze), path);
+        return validity.verify();
     }
 
     private static List<List<Character>> map() throws IOException {
@@ -32,13 +38,20 @@ public class Maze {
         BufferedReader reader = new BufferedReader(new FileReader(Maze.maze));
         String line;
         while ((line = reader.readLine()) != null) {
-            List<Character> row = getCharacters(line, mappings);
+            List<Character> row = getCharacters(line);
             mappings.add(row);
+        }
+        for(List<Character> list : mappings){
+            if(list.size() != mappings.get(0).size()){
+                while(list.size() != mappings.get(0).size()){
+                    list.add(' ');
+                }
+            }
         }
         return mappings;
     }
 
-    private static List<Character> getCharacters(String line, List<List<Character>> mappings) {
+    private static List<Character> getCharacters(String line) {
         List<Character> row = new ArrayList<>();
         for (int idx = 0; idx < line.length(); idx++) {
             if (line.charAt(idx) == '#') {
@@ -48,15 +61,13 @@ public class Maze {
                 row.add(' ');
             }
         }
-        if(Arrays.toString(new List[]{row}).equals("[[]]")){
-            for(int i = 0; i < mappings.get(0).size(); i++){
-                row.add(' ');
-            }
-        }
+
         return row;
     }
 
     public void display(){
+        //Used to keep track of position
+        //was just used for testing
         for (List<Character> characters : maze_map) {
             for (Character character : characters) {
                 if (character == '#') {
@@ -64,7 +75,7 @@ public class Maze {
                 } else if (character == ' ') {
                     System.out.print('_');
                 } else {
-                    System.out.print('p');
+                    System.out.print(character);
                 }
             }
             System.out.println();
@@ -72,7 +83,7 @@ public class Maze {
 
     }
 
-    public int startingPosition(){
+    private int westPosition(){
         for(int i = 0; i < maze_map.size(); i++){
             if(maze_map.get(i).get(0) == ' '){
                 return i;
@@ -80,7 +91,7 @@ public class Maze {
         }
         return 0;
     }
-    public int endPosition(){
+    private int eastPosition(){
         for(int i = 0; i < maze_map.size(); i++){
             if(maze_map.get(i).get(maze_map.size() -1) == ' '){
                 return i;
@@ -89,19 +100,12 @@ public class Maze {
         return 0;
     }
 
+    public int[] westEastCoords(){
+        return new int[] {westPosition(), eastPosition()};
+    }
     public int size(){
         return maze_map.size();
     }
 
-    public void clean(){
-        for(List<Character> list : maze_map){
-            for(Character ch : list){
-                if(ch == 'p'){
-                    int idx = list.indexOf('p');
-                    list.set(idx, ' ');
-                }
-            }
-        }
-    }
 
 }

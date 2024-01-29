@@ -1,19 +1,16 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 
-public class Move {
+public class Movement {
 
     public Player player;
 
     private final Maze maze;
 
-    private final Path path;
 
-
-    public Move(Player p1, Maze maze1, Path path1){
+    public Movement(Player p1, Maze maze1){
         player = p1;
         maze = maze1;
-        path = path1;
     }
 
     private int[] nextStep(){
@@ -33,17 +30,16 @@ public class Move {
         }
     }
 
-   public boolean canMove(){
+    public boolean canMove(){
        int[] result = nextStep();
 
         if(result[0] >= 0 && result[0] < maze.size() && result[1] >= 0 && result[1] < maze.size() ){
             if(maze.getMaze().get(result[0]).get(result[1]).toString().equals("#")) {
-
                 return false;
             }
-            return maze.getMaze().get(result[0]).get(result[1]) == ' ';
+            return maze.getMaze().get(result[0]).get(result[1]) != '#';
         }
-        return false;
+        return true;
     }
 
     public void move(){

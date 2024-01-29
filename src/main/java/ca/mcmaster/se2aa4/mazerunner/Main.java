@@ -3,9 +3,10 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 
 import org.apache.commons.cli.*;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
 
 public class Main {
 
@@ -13,21 +14,10 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-
             Configuration config = configure(args);
             logger.info("** Starting Maze Runner");
             logger.info("**** Reading the maze from file " + config.maze);
-            Maze maze = new Maze(config.maze);
-
-            Path path = new Path(config.path);
-            VerifyPath validity = new VerifyPath();
-            path.changeForm();
-            if(validity.verify(maze, path)){
-                System.out.println("correct path");
-            }
-            else{
-                System.out.println("incorrect path");
-            }
+            initialize(config.maze, config.path);
 
         } catch(Exception e) {
             logger.error(e);
@@ -42,7 +32,7 @@ public class Main {
         Options options = new Options();
         options.addOption("i", true, "Maze flag");
         options.addOption("p", true, "Path");
-        options.addOption("method", true, "Method of computing path");
+
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd_line = parser.parse(options, args);
 
@@ -54,5 +44,20 @@ public class Main {
         }
     }
 
+    private static void initialize(String user_maze, String user_path) throws IOException {
+        Maze maze = new Maze(user_maze);
+        if(user_path != null){
+            Path path = new Path(user_path);
+            if(maze.verify(path)){
+                System.out.println("correct path");
+            }
+            else{
+                System.out.println("incorrect path");
+            }
+        }
+        else{
+            maze.solve();
+        }
+    }
 
 }
