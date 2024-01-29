@@ -13,7 +13,7 @@ public class VerifyPath {
 
     private final Path path;
 
-    private final Player player = new Player(E);
+    private final Player player = new Player();
 
     public VerifyPath(Maze user_maze, Path user_path){
         maze = user_maze;

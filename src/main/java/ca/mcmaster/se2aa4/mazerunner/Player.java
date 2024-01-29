@@ -5,8 +5,8 @@ public class Player {
 
 
     private Direction direction;
-    public Player(Direction d){
-        setDirection(d);
+    public Player(){
+
     }
 
     public int[] location(Maze maze){

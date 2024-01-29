@@ -34,6 +34,7 @@ public class RightHand implements ComputePath {
     private void startPath(){
         coords = maze.westEastCoords();
         player.setLocation(maze, new int[] {coords[0], 0});
+        player.setDirection(Player.Direction.E);
         movement = new Movement(player, maze);
     }
     private void tryOther(){
