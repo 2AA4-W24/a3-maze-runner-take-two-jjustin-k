@@ -22,7 +22,7 @@ public class VerifyPath {
 
     private boolean verify(int[] start, int[] end){
         player.setLocation(maze, start);
-        Movement movement = new Movement(player, maze, path);
+        Movement movement = new Movement(player, maze);
         String raw_path = path.getPath();
         int len = raw_path.length();
         for(int i = 0; i < len; i++){

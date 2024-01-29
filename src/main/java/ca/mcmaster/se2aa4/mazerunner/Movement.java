@@ -7,16 +7,13 @@ public class Movement {
 
     private final Maze maze;
 
-    private final Path path;
 
-
-    public Movement(Player p1, Maze maze1, Path path1){
+    public Movement(Player p1, Maze maze1){
         player = p1;
         maze = maze1;
-        path = path1;
     }
 
-    public int[] nextStep(){
+    private int[] nextStep(){
         switch(player.getDirection()){
             case N-> {
                 return new int[] {player.location(maze)[0] - 1, player.location(maze)[1]};
@@ -40,7 +37,7 @@ public class Movement {
             if(maze.getMaze().get(result[0]).get(result[1]).toString().equals("#")) {
                 return false;
             }
-            return maze.getMaze().get(result[0]).get(result[1]) == ' ' || maze.getMaze().get(result[0]).get(result[1]) == '~';
+            return maze.getMaze().get(result[0]).get(result[1]) != '#';
         }
         return true;
     }
@@ -52,15 +49,6 @@ public class Movement {
             player.setLocation(maze, result);
         }
 
-    }
-
-    public void move(char ch){
-        int[] result = nextStep();
-        if(canMove()){
-            player.setIcon(maze,ch);
-            player.setLocation(maze, result);
-            path.add_to_path('F');
-        }
     }
 
     public void turnRight(){

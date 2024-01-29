@@ -6,4 +6,5 @@ public interface ComputePath {
     Player player = new Player(Player.Direction.E);
 
     Path solve();
+
 }

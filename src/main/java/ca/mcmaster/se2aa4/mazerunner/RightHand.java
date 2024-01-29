@@ -22,7 +22,6 @@ public class RightHand implements ComputePath {
             if(rightWall() && movement.canMove()){
                 movement.move();
                 solution.add_to_path('F');
-
             }
             else{
                 tryOther();
@@ -35,33 +34,26 @@ public class RightHand implements ComputePath {
     private void startPath(){
         coords = maze.westEastCoords();
         player.setLocation(maze, new int[] {coords[0], 0});
-        movement = new Movement(player, maze, solution);
+        movement = new Movement(player, maze);
     }
     private void tryOther(){
-
         movement.turnRight();
-
         if(movement.canMove()){
-
             solution.add_to_path('R');
-
         }
         else {
             movement.turnLeft();
             if(!movement.canMove()){
+
                 while (!rightWall() || !movement.canMove()) {
                     movement.turnLeft();
-
                     solution.add_to_path('L');
-
                 }
             }
 
         }
         movement.move();
         solution.add_to_path('F');
-
-
     }
 
     private boolean rightWall(){
@@ -69,7 +61,6 @@ public class RightHand implements ComputePath {
         if(movement.canMove()){
             movement.turnLeft();
             return false;
-
         }
         else {
             movement.turnLeft();

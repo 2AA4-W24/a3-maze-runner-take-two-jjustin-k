@@ -16,31 +16,21 @@ public class Maze {
         maze_map = map();
     }
 
-
     public List<List<Character>> getMaze() {
         return maze_map;
     }
 
-    public void solve(Method method) throws IOException {
+    public void solve() throws IOException {
         ComputePath computation;
         Path solution;
-        if(method == null){
-            computation = new RightHand(new Maze(maze));
-            solution = computation.solve();
-            System.out.println(solution.getPath());
-        }
-        else {
-            if(method.equals("righthand")){
-                computation = new RightHand(new Maze(maze));
-                solution = computation.solve();
-                System.out.println(solution.getPath());
-            }
-            else if (method.equals("tremaux")){
-                computation = new Tremaux(new Maze(maze));
-                solution = computation.solve();
-                System.out.println(solution.getPath());
-            }
-        }
+        computation = new RightHand(new Maze(maze));
+        solution = computation.solve();
+        System.out.println(solution.getPath());
+    }
+
+    public boolean verify(Path path) throws IOException {
+        VerifyPath validity = new VerifyPath(new Maze(maze), path);
+        return validity.verify();
     }
 
     private static List<List<Character>> map() throws IOException {
@@ -48,7 +38,7 @@ public class Maze {
         BufferedReader reader = new BufferedReader(new FileReader(Maze.maze));
         String line;
         while ((line = reader.readLine()) != null) {
-            List<Character> row = getCharacters(line, mappings);
+            List<Character> row = getCharacters(line);
             mappings.add(row);
         }
         for(List<Character> list : mappings){
@@ -61,7 +51,7 @@ public class Maze {
         return mappings;
     }
 
-    private static List<Character> getCharacters(String line, List<List<Character>> mappings) {
+    private static List<Character> getCharacters(String line) {
         List<Character> row = new ArrayList<>();
         for (int idx = 0; idx < line.length(); idx++) {
             if (line.charAt(idx) == '#') {
@@ -77,6 +67,7 @@ public class Maze {
 
     public void display(){
         //Used to keep track of position
+        //was just used for testing
         for (List<Character> characters : maze_map) {
             for (Character character : characters) {
                 if (character == '#') {
