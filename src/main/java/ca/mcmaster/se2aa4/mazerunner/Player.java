@@ -12,8 +12,8 @@ public class Player {
     public Point location(Maze maze){
         for(int i = 0; i < maze.getMaze().size(); i++){
             for(int j = 0; j < maze.getMaze().get(i).size(); j++){
-                if(maze.getMaze().get(i).get(j) == 'p'){
-                    return new Point (i, j);
+                if(maze.pieceOnTile(i, j) == 'p'){
+                    return maze.tile(i,j);
                 }
             }
         }
@@ -21,11 +21,12 @@ public class Player {
     }
 
     public void setIcon(Maze maze, char ch){
-        maze.getMaze().get(location(maze).getX()).set(location(maze).getY(), ch);
+        Point point = maze.tile(location(maze).getX(), location(maze).getY());
+        point.setPiece(ch);
     }
 
     public void setLocation(Maze maze, Point end_point){
-        maze.getMaze().get(end_point.getX()).set(end_point.getY(), 'p');
+        maze.tile(end_point.getX(), end_point.getY()).setPiece('p');
     }
 
     public Direction getDirection(){

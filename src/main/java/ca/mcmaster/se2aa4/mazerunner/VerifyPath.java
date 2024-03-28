@@ -78,11 +78,10 @@ public class VerifyPath {
     }
 
     private void clean(){
-        for(List<Character> list : maze.getMaze()){
-            for(Character ch : list){
-                if(ch == 'p'){
-                    int idx = list.indexOf('p');
-                    list.set(idx, ' ');
+        for(List<Point> list : maze.getMaze()){
+            for(Point point : list){
+                if(point.getPiece() == 'p'){
+                    point.setPiece(' ');
                 }
             }
         }

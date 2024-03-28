@@ -32,14 +32,14 @@ public class Movement {
 
     public boolean canMove(){
        Point result = nextStep();
-
-        if(result.getX() >= 0 && result.getX() < maze.size() && result.getY() >= 0 && result.getY() < maze.size() ){
+        if(result.getX() >= 0 && result.getX() < maze.size() && result.getY() >= 0 && result.getY() < maze.getMaze().get(0).size()){
             if(maze.getMaze().get(result.getX()).get(result.getX()).toString().equals("#")) {
                 return false;
             }
-            return maze.getMaze().get(result.getX()).get(result.getY()) != '#';
+            return maze.pieceOnTile(result.getX(), result.getY()) != '#';
+
         }
-        return true;
+        return false;
     }
 
     public void move(){

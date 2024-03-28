@@ -20,6 +20,7 @@ public class Main {
 
         } catch(Exception e) {
             logger.error(e);
+            System.out.println(e);
             logger.error("/!\\ An error has occured /!\\");
         }
         logger.info("**** Computing path");
@@ -44,10 +45,10 @@ public class Main {
     }
 
     private static void initialize(String user_maze, String user_path) throws IOException {
-        Maze maze = new Maze(user_maze);
+        MazeExplorer mazeExplorer = new MazeExplorer(user_maze);
         if(user_path != null){
             Path path = new Path(user_path);
-            if(maze.verify(path)){
+            if(mazeExplorer.verify(path)){
                 System.out.println("correct path");
             }
             else{
@@ -55,7 +56,7 @@ public class Main {
             }
         }
         else{
-            maze.solve();
+            mazeExplorer.solve();
         }
     }
 

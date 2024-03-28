@@ -6,9 +6,17 @@ public class Point {
 
     private final int y;
 
+    private Character piece = ' ';
+
     public Point(int x1, int y1){
         x = x1;
         y = y1;
+    }
+
+    public Point(int x1, int y1, char ch){
+        x = x1;
+        y = y1;
+        piece = ch;
     }
 
     public int getX() {
@@ -21,5 +29,13 @@ public class Point {
 
     public int[] getCoords(){
         return new int[] {x, y};
+    }
+
+    public char getPiece(){
+        return piece;
+    }
+
+    public void setPiece(char ch){
+        piece = ch;
     }
 }
