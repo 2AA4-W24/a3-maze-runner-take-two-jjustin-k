@@ -7,7 +7,7 @@ import static ca.mcmaster.se2aa4.mazerunner.Player.Direction.*;
 
 public class VerifyPath {
 
-    private int[] coords;
+    private Point coords;
 
     private final Maze maze;
 
@@ -20,12 +20,14 @@ public class VerifyPath {
         path = user_path;
     }
 
-    private boolean verify(int[] start, int[] end){
+    private boolean verify(Point start, Point end){
         player.setLocation(maze, start);
+        System.out.println(Arrays.toString(player.location(maze).getCoords()));
         Movement movement = new Movement(player, maze);
         String raw_path = path.getPath();
         int len = raw_path.length();
         for(int i = 0; i < len; i++){
+            maze.display();
             if(raw_path.charAt(i) == 'F'){
                 if(movement.canMove()){
                     movement.move();
@@ -42,7 +44,7 @@ public class VerifyPath {
             }
         }
 
-        return Arrays.equals(player.location(maze),end);
+        return Arrays.equals(player.location(maze).getCoords(),end.getCoords());
     }
 
     public boolean verify(){
@@ -60,16 +62,16 @@ public class VerifyPath {
     }
 
     private boolean startWest(){
-        int[] start =  new int[] {coords[0], 0};
-        int[] end = new int[]{coords[1], maze.size() - 1};
+        Point start =  new Point (coords.getX(), 0);
+        Point end = new Point(coords.getY(), maze.size() - 1);
         player.setDirection(E);
 
         return verify(start, end);
     }
 
     private boolean startEast(){
-        int[] start = new int[]{coords[1], maze.size() - 1};
-        int[] end =  new int[] {coords[0], 0};
+        Point start = new Point (coords.getY(), maze.size() - 1);
+        Point end =  new Point (coords.getX(), 0);
         player.setDirection(W);
 
         return verify(start, end);

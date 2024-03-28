@@ -9,11 +9,11 @@ public class Player {
 
     }
 
-    public int[] location(Maze maze){
+    public Point location(Maze maze){
         for(int i = 0; i < maze.getMaze().size(); i++){
             for(int j = 0; j < maze.getMaze().get(i).size(); j++){
                 if(maze.getMaze().get(i).get(j) == 'p'){
-                    return new int[] {i, j};
+                    return new Point (i, j);
                 }
             }
         }
@@ -21,11 +21,11 @@ public class Player {
     }
 
     public void setIcon(Maze maze, char ch){
-        maze.getMaze().get(location(maze)[0]).set(location(maze)[1], ch);
+        maze.getMaze().get(location(maze).getX()).set(location(maze).getY(), ch);
     }
 
-    public void setLocation(Maze maze, int[] end_point){
-        maze.getMaze().get(end_point[0]).set(end_point[1], 'p');
+    public void setLocation(Maze maze, Point end_point){
+        maze.getMaze().get(end_point.getX()).set(end_point.getY(), 'p');
     }
 
     public Direction getDirection(){

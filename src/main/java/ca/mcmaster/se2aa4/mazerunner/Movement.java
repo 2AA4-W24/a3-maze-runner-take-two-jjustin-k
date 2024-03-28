@@ -13,37 +13,37 @@ public class Movement {
         maze = maze1;
     }
 
-    private int[] nextStep(){
+    private Point nextStep(){
         switch(player.getDirection()){
             case N-> {
-                return new int[] {player.location(maze)[0] - 1, player.location(maze)[1]};
+                return new Point(player.location(maze).getX()- 1, player.location(maze).getY());
             }
             case S -> {
-                return new int[] {player.location(maze)[0] + 1, player.location(maze)[1]};
+                return new Point (player.location(maze).getX() + 1, player.location(maze).getY());
             }
             case W-> {
-                return new int[] {player.location(maze)[0], player.location(maze)[1] - 1};
+                return new Point (player.location(maze).getX(), player.location(maze).getY() - 1);
             }
             default -> {
-                return new int[] {player.location(maze)[0], player.location(maze)[1] + 1};
+                return new Point (player.location(maze).getX(), player.location(maze).getY() + 1);
             }
         }
     }
 
     public boolean canMove(){
-       int[] result = nextStep();
+       Point result = nextStep();
 
-        if(result[0] >= 0 && result[0] < maze.size() && result[1] >= 0 && result[1] < maze.size() ){
-            if(maze.getMaze().get(result[0]).get(result[1]).toString().equals("#")) {
+        if(result.getX() >= 0 && result.getX() < maze.size() && result.getY() >= 0 && result.getY() < maze.size() ){
+            if(maze.getMaze().get(result.getX()).get(result.getX()).toString().equals("#")) {
                 return false;
             }
-            return maze.getMaze().get(result[0]).get(result[1]) != '#';
+            return maze.getMaze().get(result.getX()).get(result.getY()) != '#';
         }
         return true;
     }
 
     public void move(){
-        int[] result = nextStep();
+        Point result = nextStep();
         if(canMove()){
             player.setIcon(maze,' ');
             player.setLocation(maze, result);

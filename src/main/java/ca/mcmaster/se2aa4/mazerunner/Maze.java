@@ -9,10 +9,10 @@ import java.util.List;
 
 public class Maze {
 
-    private static String maze = null;
+    private final String maze;
     private final List<List<Character>> maze_map;
-    public Maze(String maze) throws IOException {
-        Maze.maze = maze;
+    public Maze(String maze1) throws IOException {
+        maze = maze1;
         maze_map = map();
     }
 
@@ -33,9 +33,9 @@ public class Maze {
         return validity.verify();
     }
 
-    private static List<List<Character>> map() throws IOException {
+    private List<List<Character>> map() throws IOException {
         List<List<Character>> mappings = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader(Maze.maze));
+        BufferedReader reader = new BufferedReader(new FileReader(maze));
         String line;
         while ((line = reader.readLine()) != null) {
             List<Character> row = getCharacters(line);
@@ -100,9 +100,10 @@ public class Maze {
         return 0;
     }
 
-    public int[] westEastCoords(){
-        return new int[] {westPosition(), eastPosition()};
+    public Point westEastCoords(){
+        return new Point (westPosition(), eastPosition());
     }
+
     public int size(){
         return maze_map.size();
     }
