@@ -10,7 +10,7 @@ public class MazeExplorer {
         maze = new Maze(m);
     }
 
-    public void solve() throws IOException {
+    public void solve(){
         ComputePath computation;
         Path solution;
         computation = new RightHand(maze);
@@ -18,7 +18,7 @@ public class MazeExplorer {
         System.out.println(solution.getPath());
     }
 
-    public boolean verify(Path path) throws IOException {
+    public boolean verify(Path path){
         VerifyPath validity = new VerifyPath(maze, path);
         return validity.verify();
     }

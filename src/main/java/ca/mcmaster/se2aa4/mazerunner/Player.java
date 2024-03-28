@@ -3,11 +3,7 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 public class Player {
 
-
     private Direction direction;
-    public Player(){
-
-    }
 
     public Point location(Maze maze){
         for(int i = 0; i < maze.getMaze().size(); i++){
@@ -36,7 +32,6 @@ public class Player {
     public void setDirection(Direction d){
         this.direction = d;
     }
-
 
     public enum Direction{
         N,

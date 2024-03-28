@@ -10,7 +10,9 @@ import java.util.List;
 public class Maze {
 
     private final String maze;
+
     private final List<List<Point>> maze_map;
+
     public Maze(String maze1) throws IOException {
         maze = maze1;
         maze_map = map();
@@ -54,13 +56,10 @@ public class Maze {
                 row.add(new Point(i, idx,' '));
             }
         }
-
         return row;
     }
 
     public void display(){
-        //Used to keep track of position
-        //was just used for testing
         for (List<Point> p : maze_map) {
             for (Point point : p) {
                 if (point.getPiece() == '#') {
@@ -73,7 +72,6 @@ public class Maze {
             }
             System.out.println();
         }
-
     }
 
     public char pieceOnTile(int row, int col){
@@ -83,7 +81,6 @@ public class Maze {
     public Point tile(int row, int col){
         return maze_map.get(row).get(col);
     }
-
 
     private int westPosition(){
         for(int i = 0; i < maze_map.size(); i++){

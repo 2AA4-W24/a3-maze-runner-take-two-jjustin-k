@@ -33,11 +33,7 @@ public class Movement {
     public boolean canMove(){
        Point result = nextStep();
         if(result.getX() >= 0 && result.getX() < maze.size() && result.getY() >= 0 && result.getY() < maze.getMaze().get(0).size()){
-            if(maze.getMaze().get(result.getX()).get(result.getX()).toString().equals("#")) {
-                return false;
-            }
             return maze.pieceOnTile(result.getX(), result.getY()) != '#';
-
         }
         return false;
     }
@@ -53,47 +49,29 @@ public class Movement {
 
     public void turnRight(){
         switch (player.getDirection()) {
-            case E -> {
+            case E ->
                 player.setDirection(Player.Direction.S);
-
-            }
-            case N -> {
+            case N ->
                 player.setDirection(Player.Direction.E);
-
-            }
-            case W -> {
+            case W ->
                 player.setDirection(Player.Direction.N);
-
-            }
-            default -> {
+            default ->
                 player.setDirection(Player.Direction.W);
-
-            }
         }
 
     }
 
     public void turnLeft(){
         switch (player.getDirection()) {
-            case E -> {
+            case E ->
                 player.setDirection(Player.Direction.N);
-
-            }
-            case N -> {
+            case N ->
                 player.setDirection(Player.Direction.W);
-
-            }
-            case W -> {
+            case W ->
                 player.setDirection(Player.Direction.S);
-
-            }
-            case S-> {
-                player.setDirection(Player.Direction.E);
-
-            }
+            case S->
+                player.setDirection(Player.Direction.E);}
         }
 
     }
 
-
-}
