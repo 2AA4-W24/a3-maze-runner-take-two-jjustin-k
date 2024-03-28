@@ -8,7 +8,7 @@ public class RightHand implements ComputePath {
 
     private final Maze maze;
 
-    private int [] coords;
+    private Point coords;
 
     public RightHand(Maze user_maze){
         maze = user_maze;
@@ -17,8 +17,8 @@ public class RightHand implements ComputePath {
     @Override
     public Path solve() {
         startPath();
-        int[] end_location = {coords[1], maze.size() -1};
-        while(!Arrays.equals(player.location(maze), end_location)){
+        Point end_location = new Point(coords.getY(), maze.size() -1);
+        while(!Arrays.equals(player.location(maze).getCoords(), end_location.getCoords())){
             if(rightWall() && movement.canMove()){
                 movement.move();
                 solution.add_to_path('F');
@@ -33,7 +33,7 @@ public class RightHand implements ComputePath {
 
     private void startPath(){
         coords = maze.westEastCoords();
-        player.setLocation(maze, new int[] {coords[0], 0});
+        player.setLocation(maze, new Point(coords.getX(), 0));
         player.setDirection(Player.Direction.E);
         movement = new Movement(player, maze);
     }

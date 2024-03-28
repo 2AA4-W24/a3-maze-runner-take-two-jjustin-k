@@ -3,6 +3,7 @@ package ca.mcmaster.se2aa4.mazerunner;
 public class Path {
 
     private String path;
+
     public Path(String user_path){
         this.path = user_path;
     }
