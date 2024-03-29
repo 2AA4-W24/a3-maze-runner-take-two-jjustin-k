@@ -22,16 +22,38 @@ public class AdjacencyList implements Graph{
         for(Node n : nodeList){
             System.out.println(Arrays.toString(n.point.getCoords()) + " ");
         }
+        for(List<Edge> e : listHashMap.values()){
+            for(Edge ed : e){
+                System.out.println(Arrays.toString(ed.getNode1().getCoords()) + " " + Arrays.toString(ed.getNode2().getCoords()) + " " + ed.getWeight());
+            }
+        }
     }
 
     public List<Node> nodes(){
         return nodeList;
     }
     @Override
-    public void addEdge(Node n1, Node n2, String weight) {
+    public void addEdge(Node n1, Node n2, int weight) {
         Edge edge = new Edge(n1, n2, weight);
-        edgeList.add(edge);
-    }
+        if(listHashMap.get(n1) == null){
+            List<Edge> edgeList1 = new ArrayList<>();
+            edgeList1.add(edge);
+            listHashMap.put(n1, edgeList1);
+        }
+        else{
+            listHashMap.get(n1).add(edge);
+        }
 
+        if(listHashMap.get(n2) == null){
+            List<Edge> edgeList2 = new ArrayList<>();
+            edgeList2.add(edge);
+            listHashMap.put(n1, edgeList2);
+        }
+        else{
+            listHashMap.get(n2).add(edge);
+        }
+
+
+    }
 
 }

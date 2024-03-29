@@ -6,7 +6,7 @@ public interface Graph {
 
     void addNode(Node node);
 
-    void addEdge(Node n1, Node n2, String weight);
+    void addEdge(Node n1, Node n2, int weight);
 
     void disp();
 
