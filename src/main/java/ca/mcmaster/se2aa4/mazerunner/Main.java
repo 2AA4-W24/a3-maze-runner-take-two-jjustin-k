@@ -11,14 +11,14 @@ public class Main {
 
     private static final Logger logger = LogManager.getLogger();
 
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args) throws IOException, ParseException {
+      //  try {
             Configuration config = configure(args);
             logger.info("** Starting Maze Runner");
             logger.info("**** Reading the maze from file " + config.maze);
             initialize(config.maze, config.path);
 
-        } catch(Exception e) {
+      /*  } catch(Exception e) {
             logger.error(e);
             System.out.println(e);
             logger.error("/!\\ An error has occured /!\\");
@@ -26,6 +26,8 @@ public class Main {
         logger.info("**** Computing path");
         logger.error("PATH NOT COMPUTED");
         logger.info("** End of MazeRunner");
+
+       */
     }
 
     private static Configuration configure(String[] args) throws ParseException{

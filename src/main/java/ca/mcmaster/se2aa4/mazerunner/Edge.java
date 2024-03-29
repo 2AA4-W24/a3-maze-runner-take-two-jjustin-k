@@ -1,25 +1,33 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-public class Edge {
+import java.util.Comparator;
+
+public class Edge implements Comparator<Edge> {
 
     private final Node node1;
 
-    private final Node node2;
+    private Integer weight = 0;
 
-    private int weight = 0;
+    private Integer cost = 0;
 
-    public Edge(Node n1, Node n2){
+    public Edge(Node n1){
         node1 = n1;
-        node2 = n2;
+
     }
 
-    public Edge(Node n1, Node n2, int w){
+    public Edge(Node n1, Integer w){
         node1 = n1;
-        node2 = n2;
         weight = w;
     }
 
-    public int getWeight(){
+    public void setCost(Integer i){
+        cost += i;
+    }
+
+    public Integer getCost(){
+        return cost;
+    }
+    public Integer getWeight(){
         return weight;
     }
 
@@ -27,8 +35,12 @@ public class Edge {
         return node1.point;
     }
 
-    public Point getNode2(){
-        return node2.point;
+    public Node getNode(){
+        return node1;
     }
 
+    @Override
+    public int compare(Edge edge, Edge t1) {
+        return edge.getCost().compareTo(t1.getCost());
+    }
 }

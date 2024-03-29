@@ -1,122 +1,66 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class GraphSolution implements ComputePath{
-
     private Movement movement;
 
     private final Maze maze;
 
     private Point coords;
 
-    private final Graph graph = new AdjacencyList();
+    private final GraphBuilder graphBuilder;
 
-    public GraphSolution(Maze maze1){
-        maze = maze1;
+    private final Graph graph;
+
+    Node beg;
+
+
+    public GraphSolution(Maze user_maze){
+        maze = user_maze;
+        graphBuilder = new GraphBuilder(maze);
+        graph = graphBuilder.build();
+        beg = graph.nodes().get(0);
+
     }
+
     @Override
     public Path solve() {
-        buildGraph();
-        graph.disp();
+        startPath();
         return null;
     }
 
-    private void buildGraph(){
-        for(int row = 1; row < maze.size() -1; row++){
-            for(int col = 1; col < maze.colSize() -1; col++){
-                if(maze.pieceOnTile(row, col) == ' '){
-                    if(inJunction(row, col)){
-                        graph.addNode(new Node(maze.tile(row, col)));
-                    }
+    private void startPath(){
+        coords = maze.westEastCoords();
+        player.setLocation(maze, new Point(coords.getX(), 0));
+        player.setDirection(Player.Direction.E);
+        movement = new Movement(player, maze);
+        System.out.println(Arrays.toString(dijkstra()));
+    }
+
+    private int[] dijkstra(){
+        int[] path = new int[graph.nodes().size()];
+        int[] cost = new int[graph.nodes().size()];
+        Arrays.fill(cost, 1000);
+        cost[beg.number()] = 0;
+        Arrays.fill(path, 1000);
+        path[beg.number()] = beg.number();
+        Edge sn = new Edge(beg, 0);
+        Queue<Edge> queue = new PriorityQueue<>(Comparator.comparingInt(Edge::getCost));
+        queue.add(sn);
+        while(!queue.isEmpty()){
+            Node m = queue.poll().getNode();
+            for(Edge edge : graph.edgeList(m)){
+                Node n = edge.getNode();
+                if(cost[m.number()] + edge.getWeight() < cost[n.number()]){
+                    path[n.number()] = n.number();
+                    cost[n.number()] = cost[m.number()] + edge.getWeight();
+                    edge.setCost(cost[n.number()]);
+                    queue.add(edge);
                 }
             }
         }
-        findEdges();
-    }
-
-    private void findEdges(){
-        List<Node> nodes = graph.nodes();
-        for(Node n : graph.nodes()){
-            for(int i = graph.nodes().indexOf(n) + 1; i < graph.nodes().size(); i++){
-               Point p1 = n.point;
-               Point p2 = nodes.get(i).point;
-               if(clearPathX(p1, p2)){
-                   graph.addEdge(n, nodes.get(i), distance(p1.getX(), p2.getX()));
-               }
-               else if(clearPathY(p1, p2)){
-                   graph.addEdge(n, nodes.get(i), distance(p1.getX(), p2.getX()));
-               }
-            }
-        }
-    }
-
-    private int distance(int x1, int x2){
-        return Math.abs(x1 - x2);
-    }
-
-    private boolean clearPathX(Point p1, Point p2) {
-        boolean notBlocked = true;
-        if (p1.getX() == p2.getX()) {
-            if (p1.getY() > p2.getY()) {
-                for (int j = p2.getY() + 1; j < p1.getY(); j++) {
-                    if (maze.pieceOnTile(p1.getX(), j) == '#') {
-                        notBlocked = false;
-                        break;
-                    }
-                }
-            } else {
-                for (int j = p1.getY() + 1; j < p2.getY(); j++) {
-                    if (maze.pieceOnTile(p1.getX(), j) == '#') {
-                        notBlocked = false;
-                        break;
-                    }
-                }
-            }
-            return notBlocked;
-        }
-        return false;
-    }
-
-    private boolean clearPathY(Point p1, Point p2){
-        boolean notBlocked = true;
-        if(p1.getY() == p2.getY()){
-            if(p1.getX() > p2.getX()){
-                for(int j = p2.getX() + 1; j < p1.getX(); j++){
-                    if(maze.pieceOnTile(j, p1.getY()) == '#'){
-                        notBlocked = false;
-                        break;
-                    }
-                }
-            }
-            else{
-                for(int j = p1.getX() + 1; j < p2.getX(); j++){
-                    if(maze.pieceOnTile(j, p1.getY()) == '#'){
-                        notBlocked = false;
-                        break;
-                    }
-                }
-            }
-            return notBlocked;
-        }
-        return false;
-    }
-
-    private boolean inJunction(int row, int col){
-        int adj = 0;
-        if(maze.pieceOnTile(row + 1, col) == ' '){
-            adj++;
-        }
-        if( maze.pieceOnTile(row - 1, col) == ' ' ){
-            adj++;
-        }
-        if(maze.pieceOnTile(row, col + 1) == ' '){
-            adj++;
-        }
-        if(maze.pieceOnTile(row, col -1) == ' '){
-            adj++;
-        }
-        return adj >=3;
+        return path;
     }
 }

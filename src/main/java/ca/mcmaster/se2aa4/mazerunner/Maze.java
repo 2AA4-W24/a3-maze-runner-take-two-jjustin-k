@@ -103,6 +103,14 @@ public class Maze {
         return new Point (westPosition(), eastPosition());
     }
 
+    public Point westCoords(){
+        return new Point(westPosition(), 0);
+    }
+
+    public Point eastCoords(){
+        return new Point(eastPosition(), size() -1);
+    }
+
     public int size(){
         return maze_map.size();
     }

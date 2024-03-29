@@ -12,10 +12,10 @@ public class MazeExplorer {
 
     public void solve(){
         ComputePath computation;
+        GraphBuilder graphBuilder;
         Path solution;
         computation = new GraphSolution(maze);
-        solution = computation.solve();
-    //    System.out.println(solution.getPath());
+        computation.solve();
     }
 
     public boolean verify(Path path){

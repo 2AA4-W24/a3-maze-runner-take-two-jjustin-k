@@ -12,6 +12,9 @@ public interface Graph {
 
     List<Node> nodes();
 
+    List<Edge> edgeList(Node n);
+
+
 
 
 }
