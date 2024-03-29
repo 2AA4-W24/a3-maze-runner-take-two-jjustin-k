@@ -13,9 +13,9 @@ public class MazeExplorer {
     public void solve(){
         ComputePath computation;
         Path solution;
-        computation = new RightHand(maze);
+        computation = new GraphSolution(maze);
         solution = computation.solve();
-        System.out.println(solution.getPath());
+    //    System.out.println(solution.getPath());
     }
 
     public boolean verify(Path path){

@@ -1,7 +1,17 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
+import java.util.List;
+
 public interface Graph {
 
-    void addNode();
+    void addNode(Node node);
+
+    void addEdge(Node n1, Node n2, String weight);
+
+    void disp();
+
+    List<Node> nodes();
+
+
 
 }

@@ -6,14 +6,14 @@ public class Edge {
 
     private final Node node2;
 
-    private char weight = 'F';
+    private String weight = "F";
 
     public Edge(Node n1, Node n2){
         node1 = n1;
         node2 = n2;
     }
 
-    public Edge(Node n1, Node n2, char w){
+    public Edge(Node n1, Node n2, String w){
         node1 = n1;
         node2 = n2;
         weight = w;

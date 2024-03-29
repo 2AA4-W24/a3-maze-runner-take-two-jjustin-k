@@ -107,5 +107,9 @@ public class Maze {
         return maze_map.size();
     }
 
+    public int colSize(){
+        return maze_map.get(0).size();
+    }
+
 
 }

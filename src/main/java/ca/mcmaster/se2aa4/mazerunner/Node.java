@@ -6,4 +6,6 @@ public class Node {
     public Node(Point p){
         point = p;
     }
+
+
 }
