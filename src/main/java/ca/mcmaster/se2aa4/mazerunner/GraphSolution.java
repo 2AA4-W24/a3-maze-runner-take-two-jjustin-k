@@ -55,12 +55,16 @@ public class GraphSolution implements ComputePath{
                 Node n = edge.getNode();
                 if(cost[m.number()] + edge.getWeight() < cost[n.number()]){
                     path[n.number()] = n.number();
+                    System.out.print(" " + path[n.number()]);
+                    n.point.setPiece('*');
                     cost[n.number()] = cost[m.number()] + edge.getWeight();
                     edge.setCost(cost[n.number()]);
                     queue.add(edge);
                 }
             }
         }
+        System.out.println();
+        maze.display();
         return path;
     }
 }

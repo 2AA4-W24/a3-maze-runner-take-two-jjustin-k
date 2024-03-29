@@ -120,11 +120,6 @@ public class GraphBuilder{
         if(maze.pieceOnTile(row, col -1) == ' '){
             adj++;
         }
-        if(adj ==2){
-        maze.tile(row, col).setPiece('B');}
-        else if(adj >= 3){
-            maze.tile(row, col).setPiece('J');
-        }
         return adj >=2;
     }
 }
