@@ -16,12 +16,15 @@ public class GraphSolution implements ComputePath{
 
     Node beg;
 
+    Node end;
+
 
     public GraphSolution(Maze user_maze){
         maze = user_maze;
         graphBuilder = new GraphBuilder(maze);
         graph = graphBuilder.build();
         beg = graph.nodes().get(0);
+        end = graph.nodes().get(graph.nodes().size() -1);
 
     }
 
@@ -37,6 +40,7 @@ public class GraphSolution implements ComputePath{
         player.setDirection(Player.Direction.E);
         movement = new Movement(player, maze);
         System.out.println(Arrays.toString(dijkstra()));
+        printNodes();
     }
 
     private int[] dijkstra(){
@@ -54,17 +58,38 @@ public class GraphSolution implements ComputePath{
             for(Edge edge : graph.edgeList(m)){
                 Node n = edge.getNode();
                 if(cost[m.number()] + edge.getWeight() < cost[n.number()]){
-                    path[n.number()] = n.number();
-                    System.out.print(" " + path[n.number()]);
-                    n.point.setPiece('*');
+                    path[n.number()] = m.number();
+                    //System.out.println(Arrays.toString(n.point.getCoords()));
                     cost[n.number()] = cost[m.number()] + edge.getWeight();
                     edge.setCost(cost[n.number()]);
                     queue.add(edge);
                 }
             }
         }
-        System.out.println();
-        maze.display();
+       // System.out.println(Arrays.toString(cost));
+        //maze.display();
         return path;
+    }
+
+    private void printNodes(){
+        int[] paths = dijkstra();
+        Node n = end;
+        while(n != beg){
+            //System.out.println(Arrays.toString(n.point.getCoords()));
+            n = graph.nodes().get(paths[n.number()]);
+            player.setLocation(maze, n.point);
+            maze.display();
+        }
+    }
+
+    private void printEdges(){
+        for(Node n : graph.nodes()){
+            System.out.print(Arrays.toString(n.point.getCoords()) + " edges : ");
+            if(graph.edgeList(n) != null){
+            for(Edge e : graph.edgeList(n)){
+                System.out.print(Arrays.toString(e.getNode1().getCoords()) + " ");
+            }
+
+        } System.out.println();}
     }
 }

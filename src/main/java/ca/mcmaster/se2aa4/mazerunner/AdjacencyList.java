@@ -34,6 +34,7 @@ public class AdjacencyList implements Graph{
     @Override
     public void addEdge(Node n1, Node n2, int weight) {
         Edge edge = new Edge(n2, weight);
+        Edge edge2 = new Edge(n1, weight);
         if(listHashMap.get(n1) == null){
             List<Edge> edgeList1 = new ArrayList<>();
             edgeList1.add(edge);
@@ -45,11 +46,11 @@ public class AdjacencyList implements Graph{
 
         if(listHashMap.get(n2) == null){
             List<Edge> edgeList2 = new ArrayList<>();
-            edgeList2.add(edge);
-            listHashMap.put(n1, edgeList2);
+            edgeList2.add(edge2);
+            listHashMap.put(n2, edgeList2);
         }
         else{
-            listHashMap.get(n2).add(edge);
+            listHashMap.get(n2).add(edge2);
         }
     }
 

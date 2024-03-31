@@ -22,18 +22,19 @@ public class GraphBuilder{
 
     private void buildGraph(){
         graph.addNode(new Node(maze.westCoords(),0));
-        graph.addNode(new Node(maze.eastCoords(), 1));
-        int nodeNumber = 2;
+        int nodeNumber = 1;
         for(int row = 1; row < maze.size() -1; row++){
             for(int col = 1; col < maze.colSize() -1; col++){
                 if(maze.pieceOnTile(row, col) == ' '){
                     if(inJunction(row, col)){
                         graph.addNode(new Node(maze.tile(row, col), nodeNumber));
+                        maze.tile(row, col).setPiece('*');
                         nodeNumber++;
                     }
                 }
             }
         }
+        graph.addNode(new Node(maze.eastCoords(), nodeNumber));
         findEdges();
     }
 
@@ -45,11 +46,11 @@ public class GraphBuilder{
                Point p2 = nodes.get(i).point;
                if(clearPathX(p1, p2)){
                    graph.addEdge(n, nodes.get(i), distance(p1.getY(), p2.getY()));
-                   graph.addEdge(nodes.get(i), n,distance(p1.getY(), p2.getY()));
+
                }
                else if(clearPathY(p1, p2)){
                    graph.addEdge(n, nodes.get(i), distance(p1.getX(), p2.getX()));
-                   graph.addEdge(nodes.get(i), n, distance(p1.getX(), p2.getX()));
+
                }
             }
         }
