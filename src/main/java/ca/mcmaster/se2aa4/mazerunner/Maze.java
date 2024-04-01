@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Maze {
@@ -16,6 +17,7 @@ public class Maze {
     public Maze(String maze1) throws IOException {
         maze = maze1;
         maze_map = map();
+        display();
     }
 
     public List<List<Point>> getMaze() {
@@ -35,7 +37,7 @@ public class Maze {
         i =0;
         for(List<Point> list : mappings){
             if(list.size() != mappings.get(0).size()){
-                int j = 0;
+                int j = list.size();
                 while(list.size() != mappings.get(0).size()){
                     list.add(new Point(i, j, ' '));
                     j++;
@@ -62,6 +64,8 @@ public class Maze {
     public void display(){
         for (List<Point> p : maze_map) {
             for (Point point : p) {
+                //System.out.print(Arrays.toString(point.getCoords()) + " ");
+
                 if (point.getPiece() == '#') {
                     System.out.print('#');
                 } else if (point.getPiece() == ' ') {
@@ -69,6 +73,8 @@ public class Maze {
                 } else {
                     System.out.print(point.getPiece());
                 }
+
+
             }
             System.out.println();
         }

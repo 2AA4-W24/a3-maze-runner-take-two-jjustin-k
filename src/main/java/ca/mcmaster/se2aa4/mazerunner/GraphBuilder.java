@@ -1,6 +1,7 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 
+import java.util.Arrays;
 import java.util.List;
 
 public class GraphBuilder{
@@ -15,6 +16,14 @@ public class GraphBuilder{
 
     public Graph build() {
         buildGraph();
+        for(Node n : graph.nodes()){
+           //System.out.println(Arrays.toString(n.point.getCoords()) + "");
+            if(graph.edgeList(n) != null){
+            for (Edge e : graph.edgeList(n)){
+             ///   System.out.print(Arrays.toString(e.getNode().point.getCoords()) +" ");
+            }}
+            //System.out.println();
+        }
         return graph;
     }
 
@@ -25,6 +34,7 @@ public class GraphBuilder{
             for(int col = 1; col < maze.colSize() -1; col++){
                 if(maze.pieceOnTile(row, col) == ' '){
                     if(inJunction(row, col)){
+                        //System.out.println(Arrays.toString(maze.tile(row, col).getCoords()) + " " + row +" " + col);
                         graph.addNode(new Node(maze.tile(row, col), nodeNumber));
                         nodeNumber++;
                     }
@@ -39,15 +49,16 @@ public class GraphBuilder{
         List<Node> nodes = graph.nodes();
         for(Node n : graph.nodes()){
             for(int i = graph.nodes().indexOf(n) + 1; i < graph.nodes().size(); i++){
+
                Point p1 = n.point;
                Point p2 = nodes.get(i).point;
+               //System.out.println(Arrays.toString(p1.getCoords()) + " " + Arrays.toString(p2.getCoords()));
                if(clearPathX(p1, p2)){
                    graph.addEdge(n, nodes.get(i), distance(p1.getY(), p2.getY()));
 
                }
                else if(clearPathY(p1, p2)){
                    graph.addEdge(n, nodes.get(i), distance(p1.getX(), p2.getX()));
-
                }
             }
         }
@@ -106,16 +117,16 @@ public class GraphBuilder{
 
     private boolean inJunction(int row, int col){
         int adj = 0;
-        if(maze.pieceOnTile(row + 1, col) == ' '){
+        if(maze.pieceOnTile(row + 1, col) != '#'){
             adj++;
         }
-        if( maze.pieceOnTile(row - 1, col) == ' ' ){
+        if( maze.pieceOnTile(row - 1, col) != '#' ){
             adj++;
         }
-        if(maze.pieceOnTile(row, col + 1) == ' '){
+        if(maze.pieceOnTile(row, col + 1) != '#'){
             adj++;
         }
-        if(maze.pieceOnTile(row, col -1) == ' '){
+        if(maze.pieceOnTile(row, col -1) != '#'){
             adj++;
         }
         return adj >=2;

@@ -34,6 +34,7 @@ public class GraphSolution implements ComputePath{
         player.setLocation(maze, new Point(coords.getX(), 0));
         player.setDirection(Player.Direction.E);
         movement = new Movement(player, maze);
+        //maze.display();
         findPath(nodesVisited());
         return path;
     }
@@ -68,6 +69,7 @@ public class GraphSolution implements ComputePath{
         List<Node> pointList = new ArrayList<>();
         Node n = end;
         while(n != beg){
+            //System.out.println(Arrays.toString(n.point.getCoords()));
             pointList.add(n);
             n = graph.nodes().get(paths[n.number()]);
             player.setLocation(maze, n.point);
@@ -81,6 +83,8 @@ public class GraphSolution implements ComputePath{
         for(int n = nodes.size() -2; n >= 0; n--){
             Point cur =  nodes.get(n).point;
             Point prev = previous.point;
+
+            //System.out.println(Arrays.toString(prev.getCoords()) + " " + Arrays.toString(cur.getCoords()));
             if(prev.getY() == cur.getY()){
                 if(prev.getX() > cur.getX()){
                     towardsNode(Player.Direction.N);
