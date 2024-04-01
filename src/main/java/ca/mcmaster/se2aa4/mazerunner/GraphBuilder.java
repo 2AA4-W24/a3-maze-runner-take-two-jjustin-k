@@ -15,8 +15,6 @@ public class GraphBuilder{
 
     public Graph build() {
         buildGraph();
-        graph.disp();
-        maze.display();
         return graph;
     }
 
@@ -28,7 +26,6 @@ public class GraphBuilder{
                 if(maze.pieceOnTile(row, col) == ' '){
                     if(inJunction(row, col)){
                         graph.addNode(new Node(maze.tile(row, col), nodeNumber));
-                        maze.tile(row, col).setPiece('*');
                         nodeNumber++;
                     }
                 }

@@ -22,12 +22,10 @@ public class VerifyPath {
 
     private boolean verify(Point start, Point end){
         player.setLocation(maze, start);
-        System.out.println(Arrays.toString(player.location(maze).getCoords()));
         Movement movement = new Movement(player, maze);
         String raw_path = path.getPath();
         int len = raw_path.length();
         for(int i = 0; i < len; i++){
-            maze.display();
             if(raw_path.charAt(i) == 'F'){
                 if(movement.canMove()){
                     movement.move();
@@ -65,7 +63,6 @@ public class VerifyPath {
         Point start =  new Point (coords.getX(), 0);
         Point end = new Point(coords.getY(), maze.size() - 1);
         player.setDirection(E);
-
         return verify(start, end);
     }
 
@@ -73,7 +70,6 @@ public class VerifyPath {
         Point start = new Point (coords.getY(), maze.size() - 1);
         Point end =  new Point (coords.getX(), 0);
         player.setDirection(W);
-
         return verify(start, end);
     }
 

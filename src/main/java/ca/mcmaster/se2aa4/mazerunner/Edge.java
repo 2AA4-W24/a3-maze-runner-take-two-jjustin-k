@@ -6,14 +6,9 @@ public class Edge implements Comparator<Edge> {
 
     private final Node node1;
 
-    private Integer weight = 0;
+    private final Integer weight;
 
     private Integer cost = 0;
-
-    public Edge(Node n1){
-        node1 = n1;
-
-    }
 
     public Edge(Node n1, Integer w){
         node1 = n1;

@@ -10,12 +10,16 @@ public class MazeExplorer {
         maze = new Maze(m);
     }
 
-    public void solve(){
+    public void solve(String method){
         ComputePath computation;
-        GraphBuilder graphBuilder;
-        Path solution;
-        computation = new GraphSolution(maze);
-        computation.solve();
+        if(method.equals("righthand")){
+            computation = new RightHand(maze);
+        }
+        else{
+            computation = new GraphSolution(maze);
+        }
+        Path solution = computation.solve();
+        System.out.println(solution.getPath());
     }
 
     public boolean verify(Path path){
