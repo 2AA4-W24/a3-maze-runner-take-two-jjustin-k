@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Main {
 
@@ -16,7 +17,7 @@ public class Main {
             Configuration config = configure(args);
             logger.info("** Starting Maze Runner");
             logger.info("**** Reading the maze from file " + config.maze);
-            initialize(config.maze, config.path);
+            initialize(config.maze, config.path, config.method);
 
         } catch(Exception e) {
             logger.error(e);
@@ -32,19 +33,20 @@ public class Main {
         Options options = new Options();
         options.addOption("i", true, "Maze flag");
         options.addOption("p", true, "Path");
+        options.addOption("method", true, "Exploration Method");
 
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd_line = parser.parse(options, args);
 
-        return new Configuration(cmd_line.getOptionValue("i"), cmd_line.getOptionValue("p"));
+        return new Configuration(cmd_line.getOptionValue("i"), cmd_line.getOptionValue("p"), cmd_line.getOptionValue("method"));
     }
 
-    private record Configuration(String maze, String path){
+    private record Configuration(String maze, String path, String method){
         Configuration{
         }
     }
 
-    private static void initialize(String user_maze, String user_path) throws IOException {
+    private static void initialize(String user_maze, String user_path, String method) throws IOException {
         MazeExplorer mazeExplorer = new MazeExplorer(user_maze);
         if(user_path != null){
             Path path = new Path(user_path);
@@ -56,7 +58,8 @@ public class Main {
             }
         }
         else{
-            mazeExplorer.solve();
+            mazeExplorer.solve(Objects.requireNonNullElse(method, "graph"));
+
         }
     }
 

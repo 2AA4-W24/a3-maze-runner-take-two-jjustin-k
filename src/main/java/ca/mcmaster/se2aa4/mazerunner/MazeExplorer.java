@@ -10,11 +10,15 @@ public class MazeExplorer {
         maze = new Maze(m);
     }
 
-    public void solve(){
+    public void solve(String method){
         ComputePath computation;
-        Path solution;
-        computation = new RightHand(maze);
-        solution = computation.solve();
+        if(method.equals("righthand")){
+            computation = new RightHand(maze);
+        }
+        else{
+            computation = new GraphSolution(maze);
+        }
+        Path solution = computation.solve();
         System.out.println(solution.getPath());
     }
 
