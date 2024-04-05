@@ -1,30 +1,16 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class AdjacencyList implements Graph{
 
-    private final HashMap<Node, List<Edge>> listHashMap = new HashMap<>();
+    private final Map<Node, List<Edge>> listHashMap = new HashMap<>();
 
     private final List<Node> nodeList = new ArrayList<>();
 
     @Override
     public void addNode(Node node) {
         nodeList.add(node);
-    }
-
-    public void disp(){
-        for(Node n : nodeList){
-            System.out.println(Arrays.toString(n.point.getCoords()) + " ");
-        }
-        for(List<Edge> e : listHashMap.values()){
-            for(Edge ed : e){
-                System.out.println(Arrays.toString(ed.getNode1().getCoords()) + " " + ed.getWeight());
-            }
-        }
     }
 
     public List<Node> nodes(){

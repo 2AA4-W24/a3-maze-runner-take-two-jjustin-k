@@ -4,15 +4,15 @@ public class Path {
 
     private String path;
 
-    public Path(String user_path){
-        this.path = user_path;
+    public Path(String userPath){
+        this.path = userPath;
     }
 
     public String getPath(){
         return path;
     }
 
-    public void add_to_path(char ch){
+    public void addToPath(char ch){
         path += String.valueOf(ch);
     }
 
@@ -96,14 +96,14 @@ public class Path {
     }
 
     public boolean isFactored(){
-        boolean has_num = false;
+        boolean hasNum = false;
         for(int i = 0; i < path.length(); i++){
             if(Character.isDigit(path.charAt(i)) && path.charAt(i) != ' '){
-                has_num = true;
+                hasNum = true;
                 break;
             }
         }
-        return has_num;
+        return hasNum;
     }
 
 

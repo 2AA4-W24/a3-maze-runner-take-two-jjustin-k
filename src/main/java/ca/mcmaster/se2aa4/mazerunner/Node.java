@@ -2,7 +2,7 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 public class Node {
 
-    Point point;
+    private final Point point;
 
     private final int number;
 
@@ -13,6 +13,10 @@ public class Node {
 
     public int number(){
         return number;
+    }
+
+    public Point getPoint(){
+        return point;
     }
 
 }

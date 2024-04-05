@@ -8,8 +8,6 @@ public interface Graph {
 
     void addEdge(Node n1, Node n2, int weight);
 
-    void disp();
-
     List<Node> nodes();
 
     List<Edge> edgeList(Node n);

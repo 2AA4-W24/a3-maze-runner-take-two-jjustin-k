@@ -16,8 +16,8 @@ public class GraphSolution implements ComputePath{
     private final Node end;
 
 
-    public GraphSolution(Maze user_maze){
-        maze = user_maze;
+    public GraphSolution(Maze userMaze){
+        maze = userMaze;
         GraphBuilder graphBuilder = new GraphBuilder(maze);
         graph = graphBuilder.build();
         beg = graph.nodes().get(0);
@@ -30,12 +30,13 @@ public class GraphSolution implements ComputePath{
     }
 
     private Path startPath(){
-        Point coords = maze.westEastCoords();
-        player.setLocation(maze, new Point(coords.getX(), 0));
+        Point coords = maze.eastCoords();
+        player.setLocation(maze, coords);
         player.setDirection(Player.Direction.E);
         movement = new Movement(player, maze);
-        //maze.display();
         findPath(nodesVisited());
+        maze.clean();
+        path.changeForm();
         return path;
     }
 
@@ -69,10 +70,9 @@ public class GraphSolution implements ComputePath{
         List<Node> pointList = new ArrayList<>();
         Node n = end;
         while(n != beg){
-            //System.out.println(Arrays.toString(n.point.getCoords()));
             pointList.add(n);
             n = graph.nodes().get(paths[n.number()]);
-            player.setLocation(maze, n.point);
+            player.setLocation(maze, n.getPoint());
         }
         pointList.add(n);
         return pointList;
@@ -81,17 +81,15 @@ public class GraphSolution implements ComputePath{
     private void findPath(List<Node> nodes){
         Node previous = nodes.get(nodes.size() - 1);
         for(int n = nodes.size() -2; n >= 0; n--){
-            Point cur =  nodes.get(n).point;
-            Point prev = previous.point;
-
-            //System.out.println(Arrays.toString(prev.getCoords()) + " " + Arrays.toString(cur.getCoords()));
+            Point cur =  nodes.get(n).getPoint();
+            Point prev = previous.getPoint();
             if(prev.getY() == cur.getY()){
                 if(prev.getX() > cur.getX()){
                     towardsNode(Player.Direction.N);
                     int i = 0;
                     while(i < (prev.getX() - cur.getX())){
                         movement.move();
-                        path.add_to_path('F');
+                        path.addToPath('F');
                         i ++;
                     }
                 }
@@ -100,7 +98,7 @@ public class GraphSolution implements ComputePath{
                     int i = 0;
                     while (i < (cur.getX() - prev.getX())) {
                         movement.move();
-                        path.add_to_path('F');
+                        path.addToPath('F');
                         i++;
                     }
                 }
@@ -112,7 +110,7 @@ public class GraphSolution implements ComputePath{
                     int i = 0;
                     while(i < (prev.getY() - cur.getY())){
                         movement.move();
-                        path.add_to_path('F');
+                        path.addToPath('F');
                         i ++;
                     }
                 }
@@ -121,7 +119,7 @@ public class GraphSolution implements ComputePath{
                     int i = 0;
                     while (i < (cur.getY() - prev.getY())) {
                         movement.move();
-                        path.add_to_path('F');
+                        path.addToPath('F');
                         i++;
                     }
                 }
@@ -131,11 +129,22 @@ public class GraphSolution implements ComputePath{
     }
 
     private void towardsNode(Player.Direction nodeDirection){
-        Player.Direction playerDirection = player.getDirection();
-        while (playerDirection != nodeDirection) {
-            movement.turnRight();
-            path.add_to_path('R');
-            playerDirection = player.getDirection();
+        if(player.getDirection() == nodeDirection){
+            return;
+        }
+        Player.Direction playerDirection;
+        movement.turnRight();
+        playerDirection = player.getDirection();
+        if(playerDirection != nodeDirection){
+            movement.turnLeft();
+            while (playerDirection != nodeDirection) {
+                movement.turnLeft();
+                path.addToPath('L');
+                playerDirection = player.getDirection();
+            }
+        }
+        else{
+            path.addToPath('R');
         }
     }
 

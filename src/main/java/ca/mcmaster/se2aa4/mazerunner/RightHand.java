@@ -10,37 +10,39 @@ public class RightHand implements ComputePath {
 
     private Point coords;
 
-    public RightHand(Maze user_maze){
-        maze = user_maze;
+    public RightHand(Maze userMaze){
+        maze = userMaze;
     }
 
     @Override
     public Path solve() {
         startPath();
-        Point end_location = new Point(coords.getY(), maze.size() -1);
-        while(!Arrays.equals(player.location(maze).getCoords(), end_location.getCoords())){
+        Point endLocation = new Point(coords.getY(), maze.size() -1);
+        while(!Arrays.equals(player.location(maze).getCoords(), endLocation.getCoords())){
             if(rightWall() && movement.canMove()){
                 movement.move();
-                solution.add_to_path('F');
+                solution.addToPath('F');
             }
             else{
                 tryOther();
             }
         }
         solution.changeForm();
+        maze.clean();
         return solution;
     }
 
     private void startPath(){
-        coords = maze.westEastCoords();
-        player.setLocation(maze, new Point(coords.getX(), 0));
+        coords = maze.westCoords();
+        player.setLocation(maze, coords);
         player.setDirection(Player.Direction.E);
         movement = new Movement(player, maze);
     }
+
     private void tryOther(){
         movement.turnRight();
         if(movement.canMove()){
-            solution.add_to_path('R');
+            solution.addToPath('R');
         }
         else {
             movement.turnLeft();
@@ -48,13 +50,13 @@ public class RightHand implements ComputePath {
 
                 while (!rightWall() || !movement.canMove()) {
                     movement.turnLeft();
-                    solution.add_to_path('L');
+                    solution.addToPath('L');
                 }
             }
 
         }
         movement.move();
-        solution.add_to_path('F');
+        solution.addToPath('F');
     }
 
     private boolean rightWall(){

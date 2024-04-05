@@ -5,23 +5,26 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Maze {
 
     private final String maze;
 
-    private final List<List<Point>> maze_map;
+    private final List<List<Point>> mazeMap;
+
+    private final double read;
 
     public Maze(String maze1) throws IOException {
         maze = maze1;
-        maze_map = map();
-        display();
+        double start = System.currentTimeMillis();
+        mazeMap = map();
+        double end = System.currentTimeMillis();
+        read = (end - start);
     }
 
     public List<List<Point>> getMaze() {
-        return maze_map;
+        return mazeMap;
     }
 
     private List<List<Point>> map() throws IOException {
@@ -45,6 +48,7 @@ public class Maze {
             }
             i++;
         }
+        reader.close();
         return mappings;
     }
 
@@ -62,10 +66,8 @@ public class Maze {
     }
 
     public void display(){
-        for (List<Point> p : maze_map) {
+        for (List<Point> p : mazeMap) {
             for (Point point : p) {
-                //System.out.print(Arrays.toString(point.getCoords()) + " ");
-
                 if (point.getPiece() == '#') {
                     System.out.print('#');
                 } else if (point.getPiece() == ' ') {
@@ -73,8 +75,6 @@ public class Maze {
                 } else {
                     System.out.print(point.getPiece());
                 }
-
-
             }
             System.out.println();
         }
@@ -85,28 +85,25 @@ public class Maze {
     }
 
     public Point tile(int row, int col){
-        return maze_map.get(row).get(col);
+        return mazeMap.get(row).get(col);
     }
 
     private int westPosition(){
-        for(int i = 0; i < maze_map.size(); i++){
+        for(int i = 0; i < mazeMap.size(); i++){
             if(pieceOnTile(i,0) == ' '){
                 return i;
             }
         }
         return 0;
     }
+
     private int eastPosition(){
-        for(int i = 0; i < maze_map.size(); i++){
-            if(pieceOnTile(i,maze_map.size() -1) == ' '){
+        for(int i = 0; i < mazeMap.size(); i++){
+            if(pieceOnTile(i,mazeMap.size() -1) == ' '){
                 return i;
             }
         }
         return 0;
-    }
-
-    public Point westEastCoords(){
-        return new Point (westPosition(), eastPosition());
     }
 
     public Point westCoords(){
@@ -118,11 +115,25 @@ public class Maze {
     }
 
     public int size(){
-        return maze_map.size();
+        return mazeMap.size();
     }
 
     public int colSize(){
-        return maze_map.get(0).size();
+        return mazeMap.get(0).size();
+    }
+
+    public void clean(){
+        for(List<Point> list : mazeMap){
+            for(Point point : list){
+                if(point.getPiece() == 'p'){
+                    point.setPiece(' ');
+                }
+            }
+        }
+    }
+
+    public double readTime(){
+        return read;
     }
 
 
