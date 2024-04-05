@@ -4,7 +4,16 @@ public class Player {
 
     private Direction direction;
 
-    public Point location(Maze maze){
+    private final Movement movement;
+
+    private final Maze maze;
+
+    public Player(Maze maze1){
+        maze = maze1;
+        movement = new Movement(this, maze);
+    }
+
+    public Point location(){
         for(int i = 0; i < maze.getMaze().size(); i++){
             for(int j = 0; j < maze.getMaze().get(i).size(); j++){
                 if(maze.pieceOnTile(i, j) == 'p'){
@@ -15,12 +24,12 @@ public class Player {
         return null;
     }
 
-    public void setIcon(Maze maze, char ch){
-        Point point = maze.tile(location(maze).getX(), location(maze).getY());
+    public void setIcon(char ch){
+        Point point = maze.tile(location().getX(), location().getY());
         point.setPiece(ch);
     }
 
-    public void setLocation(Maze maze, Point endPoint){
+    public void setLocation(Point endPoint){
         maze.tile(endPoint.getX(), endPoint.getY()).setPiece('p');
     }
 
@@ -32,10 +41,27 @@ public class Player {
         this.direction = d;
     }
 
+    public void move(){
+        movement.move();
+    }
+
+    public void turnRight(){
+        movement.turnRight();
+    }
+
+    public void turnLeft() {
+        movement.turnLeft();
+    }
+
+    public boolean canMove(){
+        return movement.canMove();
+    }
+
     public enum Direction{
         N,
         W,
         E,
         S
     }
+
 }

@@ -3,13 +3,14 @@ package ca.mcmaster.se2aa4.mazerunner;
 import java.util.*;
 
 public class GraphSolution implements ComputePath{
-    private Movement movement;
 
     private final Maze maze;
 
     private final Graph graph;
 
     private final Path path = new Path("");
+
+    private final Player player;
 
     private final Node beg;
 
@@ -18,6 +19,7 @@ public class GraphSolution implements ComputePath{
 
     public GraphSolution(Maze userMaze){
         maze = userMaze;
+        player = new Player(maze);
         GraphBuilder graphBuilder = new GraphBuilder(maze);
         graph = graphBuilder.build();
         beg = graph.nodes().get(0);
@@ -31,9 +33,8 @@ public class GraphSolution implements ComputePath{
 
     private Path startPath(){
         Point coords = maze.eastCoords();
-        player.setLocation(maze, coords);
+        player.setLocation(coords);
         player.setDirection(Player.Direction.E);
-        movement = new Movement(player, maze);
         findPath(nodesVisited());
         maze.clean();
         path.changeForm();
@@ -72,7 +73,7 @@ public class GraphSolution implements ComputePath{
         while(n != beg){
             pointList.add(n);
             n = graph.nodes().get(paths[n.number()]);
-            player.setLocation(maze, n.getPoint());
+            player.setLocation(n.getPoint());
         }
         pointList.add(n);
         return pointList;
@@ -88,7 +89,7 @@ public class GraphSolution implements ComputePath{
                     towardsNode(Player.Direction.N);
                     int i = 0;
                     while(i < (prev.getX() - cur.getX())){
-                        movement.move();
+                        player.move();
                         path.addToPath('F');
                         i ++;
                     }
@@ -97,7 +98,7 @@ public class GraphSolution implements ComputePath{
                     towardsNode(Player.Direction.S);
                     int i = 0;
                     while (i < (cur.getX() - prev.getX())) {
-                        movement.move();
+                        player.move();
                         path.addToPath('F');
                         i++;
                     }
@@ -109,7 +110,7 @@ public class GraphSolution implements ComputePath{
                     towardsNode(Player.Direction.W);
                     int i = 0;
                     while(i < (prev.getY() - cur.getY())){
-                        movement.move();
+                        player.move();
                         path.addToPath('F');
                         i ++;
                     }
@@ -118,7 +119,7 @@ public class GraphSolution implements ComputePath{
                     towardsNode(Player.Direction.E);
                     int i = 0;
                     while (i < (cur.getY() - prev.getY())) {
-                        movement.move();
+                        player.move();
                         path.addToPath('F');
                         i++;
                     }
@@ -133,12 +134,12 @@ public class GraphSolution implements ComputePath{
             return;
         }
         Player.Direction playerDirection;
-        movement.turnRight();
+        player.turnRight();
         playerDirection = player.getDirection();
         if(playerDirection != nodeDirection){
-            movement.turnLeft();
+            player.turnLeft();
             while (playerDirection != nodeDirection) {
-                movement.turnLeft();
+                player.turnLeft();
                 path.addToPath('L');
                 playerDirection = player.getDirection();
             }

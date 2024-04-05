@@ -4,23 +4,22 @@ import java.util.Arrays;
 
 public class RightHand implements ComputePath {
 
-    private Movement movement;
-
     private final Maze maze;
 
-    private Point coords;
+    private final Player player;
 
     public RightHand(Maze userMaze){
         maze = userMaze;
+        player = new Player(maze);
     }
 
     @Override
     public Path solve() {
         startPath();
-        Point endLocation = new Point(coords.getY(), maze.size() -1);
-        while(!Arrays.equals(player.location(maze).getCoords(), endLocation.getCoords())){
-            if(rightWall() && movement.canMove()){
-                movement.move();
+        Point endLocation = maze.eastCoords();
+        while(!Arrays.equals(player.location().getCoords(), endLocation.getCoords())){
+            if(rightWall() && player.canMove()){
+                player.move();
                 solution.addToPath('F');
             }
             else{
@@ -33,40 +32,37 @@ public class RightHand implements ComputePath {
     }
 
     private void startPath(){
-        coords = maze.westCoords();
-        player.setLocation(maze, coords);
+        Point coords = maze.westCoords();
+        player.setLocation(coords);
         player.setDirection(Player.Direction.E);
-        movement = new Movement(player, maze);
     }
 
     private void tryOther(){
-        movement.turnRight();
-        if(movement.canMove()){
+        player.turnRight();
+        if(player.canMove()){
             solution.addToPath('R');
         }
         else {
-            movement.turnLeft();
-            if(!movement.canMove()){
-
-                while (!rightWall() || !movement.canMove()) {
-                    movement.turnLeft();
+            player.turnLeft();
+            if(!player.canMove()){
+                while (!rightWall() || !player.canMove()) {
+                    player.turnLeft();
                     solution.addToPath('L');
                 }
             }
-
         }
-        movement.move();
+        player.move();
         solution.addToPath('F');
     }
 
     private boolean rightWall(){
-        movement.turnRight();
-        if(movement.canMove()){
-            movement.turnLeft();
+        player.turnRight();
+        if(player.canMove()){
+            player.turnLeft();
             return false;
         }
         else {
-            movement.turnLeft();
+            player.turnLeft();
             return true;
         }
     }

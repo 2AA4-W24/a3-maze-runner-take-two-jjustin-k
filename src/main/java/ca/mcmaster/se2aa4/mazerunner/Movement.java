@@ -2,7 +2,7 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 public class Movement {
 
-    public Player player;
+    private final Player player;
 
     private final Maze maze;
 
@@ -14,16 +14,16 @@ public class Movement {
     private Point nextStep() {
         switch (player.getDirection()) {
             case N -> {
-                return new Point(player.location(maze).getX() - 1, player.location(maze).getY());
+                return new Point(player.location().getX() - 1, player.location().getY());
             }
             case S -> {
-                return new Point(player.location(maze).getX() + 1, player.location(maze).getY());
+                return new Point(player.location().getX() + 1, player.location().getY());
             }
             case W -> {
-                return new Point(player.location(maze).getX(), player.location(maze).getY() - 1);
+                return new Point(player.location().getX(), player.location().getY() - 1);
             }
             default -> {
-                return new Point(player.location(maze).getX(), player.location(maze).getY() + 1);
+                return new Point(player.location().getX(), player.location().getY() + 1);
             }
         }
     }
@@ -39,8 +39,8 @@ public class Movement {
     public void move() {
         Point result = nextStep();
         if (canMove()) {
-            player.setIcon(maze, ' ');
-            player.setLocation(maze, result);
+            player.setIcon(' ');
+            player.setLocation(result);
         }
     }
 
