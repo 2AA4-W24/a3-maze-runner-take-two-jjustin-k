@@ -1,13 +1,8 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 import java.util.Arrays;
-import java.util.List;
-
-import static ca.mcmaster.se2aa4.mazerunner.Player.Direction.*;
 
 public class VerifyPath {
-
-    private Point coords;
 
     private final Maze maze;
 
@@ -15,18 +10,18 @@ public class VerifyPath {
 
     private final Player player = new Player();
 
-    public VerifyPath(Maze user_maze, Path user_path){
-        maze = user_maze;
-        path = user_path;
+    public VerifyPath(Maze userMaze, Path userPath){
+        maze = userMaze;
+        path = userPath;
     }
 
     private boolean verify(Point start, Point end){
         player.setLocation(maze, start);
         Movement movement = new Movement(player, maze);
-        String raw_path = path.getPath();
-        int len = raw_path.length();
+        String rawPath = path.getPath();
+        int len = rawPath.length();
         for(int i = 0; i < len; i++){
-            if(raw_path.charAt(i) == 'F'){
+            if(rawPath.charAt(i) == 'F'){
                 if(movement.canMove()){
                     movement.move();
                 }
@@ -34,19 +29,18 @@ public class VerifyPath {
                     return false;
                 }
             }
-            else if(raw_path.charAt(i) == 'R'){
+            else if(rawPath.charAt(i) == 'R'){
                 movement.turnRight();
             }
-            else if(raw_path.charAt(i) == 'L'){
+            else if(rawPath.charAt(i) == 'L'){
                 movement.turnLeft();
             }
         }
-
-        return Arrays.equals(player.location(maze).getCoords(),end.getCoords());
+        Point playerLoc = player.location(maze);
+        return Arrays.equals(playerLoc.getCoords(),end.getCoords());
     }
 
     public boolean verify(){
-        coords = maze.westEastCoords();
         if (path.isFactored()){
             path.changeForm();
         }
@@ -54,33 +48,24 @@ public class VerifyPath {
             return true;
         }
         else{
-            clean();
+            maze.clean();
             return startEast();
         }
     }
 
     private boolean startWest(){
-        Point start =  new Point (coords.getX(), 0);
-        Point end = new Point(coords.getY(), maze.size() - 1);
-        player.setDirection(E);
+        Point start =  maze.westCoords();
+        Point end = maze.eastCoords();
+        player.setDirection(Player.Direction.E);
         return verify(start, end);
     }
 
     private boolean startEast(){
-        Point start = new Point (coords.getY(), maze.size() - 1);
-        Point end =  new Point (coords.getX(), 0);
-        player.setDirection(W);
+        Point start = maze.eastCoords();
+        Point end =  maze.westCoords();
+        player.setDirection(Player.Direction.W);
         return verify(start, end);
     }
 
-    private void clean(){
-        for(List<Point> list : maze.getMaze()){
-            for(Point point : list){
-                if(point.getPiece() == 'p'){
-                    point.setPiece(' ');
-                }
-            }
-        }
-    }
 
 }

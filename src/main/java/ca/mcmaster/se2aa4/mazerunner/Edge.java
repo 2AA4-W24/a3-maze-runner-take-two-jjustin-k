@@ -22,12 +22,9 @@ public class Edge implements Comparator<Edge> {
     public Integer getCost(){
         return cost;
     }
+
     public Integer getWeight(){
         return weight;
-    }
-
-    public Point getNode1(){
-        return node1.point;
     }
 
     public Node getNode(){

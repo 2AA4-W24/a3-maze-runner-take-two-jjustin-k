@@ -1,7 +1,5 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-
-import java.util.Arrays;
 import java.util.List;
 
 public class GraphBuilder{
@@ -16,14 +14,6 @@ public class GraphBuilder{
 
     public Graph build() {
         buildGraph();
-        for(Node n : graph.nodes()){
-           //System.out.println(Arrays.toString(n.point.getCoords()) + "");
-            if(graph.edgeList(n) != null){
-            for (Edge e : graph.edgeList(n)){
-             ///   System.out.print(Arrays.toString(e.getNode().point.getCoords()) +" ");
-            }}
-            //System.out.println();
-        }
         return graph;
     }
 
@@ -34,7 +24,6 @@ public class GraphBuilder{
             for(int col = 1; col < maze.colSize() -1; col++){
                 if(maze.pieceOnTile(row, col) == ' '){
                     if(inJunction(row, col)){
-                        //System.out.println(Arrays.toString(maze.tile(row, col).getCoords()) + " " + row +" " + col);
                         graph.addNode(new Node(maze.tile(row, col), nodeNumber));
                         nodeNumber++;
                     }
@@ -47,15 +36,12 @@ public class GraphBuilder{
 
     private void findEdges(){
         List<Node> nodes = graph.nodes();
-        for(Node n : graph.nodes()){
-            for(int i = graph.nodes().indexOf(n) + 1; i < graph.nodes().size(); i++){
-
-               Point p1 = n.point;
-               Point p2 = nodes.get(i).point;
-               //System.out.println(Arrays.toString(p1.getCoords()) + " " + Arrays.toString(p2.getCoords()));
+        for(Node n : nodes){
+            for(int i = nodes.indexOf(n) + 1; i < nodes.size(); i++){
+               Point p1 = n.getPoint();
+               Point p2 = nodes.get(i).getPoint();
                if(clearPathX(p1, p2)){
                    graph.addEdge(n, nodes.get(i), distance(p1.getY(), p2.getY()));
-
                }
                else if(clearPathY(p1, p2)){
                    graph.addEdge(n, nodes.get(i), distance(p1.getX(), p2.getX()));

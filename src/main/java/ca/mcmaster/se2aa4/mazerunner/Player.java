@@ -1,6 +1,5 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-
 public class Player {
 
     private Direction direction;
@@ -21,8 +20,8 @@ public class Player {
         point.setPiece(ch);
     }
 
-    public void setLocation(Maze maze, Point end_point){
-        maze.tile(end_point.getX(), end_point.getY()).setPiece('p');
+    public void setLocation(Maze maze, Point endPoint){
+        maze.tile(endPoint.getX(), endPoint.getY()).setPiece('p');
     }
 
     public Direction getDirection(){

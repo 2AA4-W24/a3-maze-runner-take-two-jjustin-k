@@ -12,7 +12,7 @@ public class MazeExplorer {
 
     public void solve(String method){
         ComputePath computation;
-        if(method.equals("righthand")){
+        if("righthand".equals(method)){
             computation = new RightHand(maze);
         }
         else{
@@ -20,6 +20,24 @@ public class MazeExplorer {
         }
         Path solution = computation.solve();
         System.out.println(solution.getPath());
+    }
+
+    public void compare(String baseline, String method){
+        BaseLine base;
+        if("righthand".equals(baseline)){
+            base = new BaseLine(new RightHand(maze));
+        }
+        else{
+            base = new BaseLine(new GraphSolution(maze));
+        }
+        System.out.println("Time to read maze from file: " + maze.readTime() + " ms");
+        if("righthand".equals(method)){
+            base.speedUp(new RightHand(maze));
+        }
+        else{
+            base.speedUp(new GraphSolution(maze));
+        }
+
     }
 
     public boolean verify(Path path){
