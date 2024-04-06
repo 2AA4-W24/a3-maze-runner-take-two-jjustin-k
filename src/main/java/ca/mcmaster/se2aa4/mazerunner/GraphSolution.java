@@ -44,9 +44,9 @@ public class GraphSolution implements ComputePath{
     private int[] dijkstra(){
         int[] path = new int[graph.nodes().size()];
         int[] cost = new int[graph.nodes().size()];
-        Arrays.fill(cost, 1000);
+        Arrays.fill(cost, 10000);
         cost[beg.number()] = 0;
-        Arrays.fill(path, 1000);
+        Arrays.fill(path, 10000);
         path[beg.number()] = beg.number();
         Edge sn = new Edge(beg, 0);
         Queue<Edge> queue = new PriorityQueue<>(Comparator.comparingInt(Edge::getCost));

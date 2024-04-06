@@ -1,0 +1,43 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Main
+class MazeExplorer
+class Point
+class Path
+class Player
+class VerifyPath
+class Maze
+class GraphSolution
+class GraphBuilder
+class Node
+class Edge
+class AdjacencyList
+class Movement
+class RightHand
+interface ComputePath
+interface Graph
+
+Main <-- MazeExplorer
+MazeExplorer o--> ComputePath
+MazeExplorer ..> Maze
+MazeExplorer o--> VerifyPath
+Maze o--> Point
+VerifyPath --> Player
+RightHand --> Player
+ComputePath ..> Path
+VerifyPath ..> Path
+RightHand ..|> ComputePath
+GraphSolution ..|> ComputePath
+Player o--> Movement
+GraphSolution <-- GraphBuilder
+GraphBuilder *--> Graph
+GraphSolution ..> Graph
+GraphSolution --> Player
+AdjacencyList ..|> Graph
+AdjacencyList *--> Node
+Edge *--> Node
+AdjacencyList o--> Edge
+
+
+@enduml

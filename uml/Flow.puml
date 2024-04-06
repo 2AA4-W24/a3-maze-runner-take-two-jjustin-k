@@ -1,0 +1,59 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+
+
+Main -> MazeExplorer: initialize()
+MazeExplorer -> Maze: <<create>> (userMaze)
+Maze -> MazeExplorer: (Maze: maze)
+
+
+alt userPath not null
+
+Main -> Path: <<create>> (userPath)
+
+Path -> Main: (Path : p)
+
+MazeExplorer -> VerifyPath: verify(Path : p)
+VerifyPath -> MazeExplorer: boolean
+MazeExplorer -> Main: boolean
+
+else baseline not null
+
+MazeExplorer -> Baseline: compare(String: baseline, method)
+
+Baseline -> MazeExplorer
+MazeExplorer -> Main
+
+else
+
+alt method is rightHand
+MazeExplorer -> RightHand: <<create>> (maze)
+RightHand -> Player: <<create>> (maze)
+Player -> Movement: <<create>>
+Movement -> Player: (Movement: move)
+Player -> RightHand: (Player: player)
+RightHand -> MazeExplorer: (ComputePath: computation)
+MazeExplorer -> RightHand: solve(method)
+RightHand -> RightHand: solve()
+RightHand -> MazeExplorer: (Path : solution))
+
+else method is graph
+MazeExplorer -> RightHand: <<create>> (maze)
+RightHand -> Player: <<create>>
+Player -> Movement: <<create>>
+Movement -> Player: (Movement: move)
+Player -> RightHand: (Player: player)
+RightHand -> MazeExplorer: (ComputePath: computation)
+MazeExplorer -> RightHand: solve(method)
+RightHand -> RightHand: solve()
+RightHand -> MazeExplorer: (Path : solution))
+end
+
+end
+
+
+@enduml
+Strings: userMaze, userPath, method,  baseline
