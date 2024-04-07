@@ -2,11 +2,13 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 public class Path {
 
-    private String path;
+    private String path = "";
 
     public Path(String userPath){
         this.path = userPath;
     }
+
+    public Path(){}
 
     public String getPath(){
         return path;

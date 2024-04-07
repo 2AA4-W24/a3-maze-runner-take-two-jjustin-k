@@ -44,6 +44,7 @@ public class VerifyPath {
         if (path.isFactored()){
             path.changeForm();
         }
+
         if(startWest()){
             return true;
         }

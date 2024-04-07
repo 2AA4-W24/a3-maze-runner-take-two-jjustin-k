@@ -8,22 +8,24 @@ public class GraphSolution implements ComputePath{
 
     private final Graph graph;
 
-    private final Path path = new Path("");
+    private final Path path = new Path();
 
     private final Player player;
 
     private final Node beg;
 
-    private final Node end;
+    private final List<Node> nodes;
 
+    private final Node end;
 
     public GraphSolution(Maze userMaze){
         maze = userMaze;
         player = new Player(maze);
         GraphBuilder graphBuilder = new GraphBuilder(maze);
         graph = graphBuilder.build();
-        beg = graph.nodes().get(0);
-        end = graph.nodes().get(graph.nodes().size() -1);
+        nodes = graph.nodes();
+        beg = nodes.get(0);
+        end = nodes.get(nodes.size() -1);
     }
 
     @Override
@@ -42,7 +44,6 @@ public class GraphSolution implements ComputePath{
     }
 
     private int[] dijkstra(){
-        List<Node> nodes = graph.nodes();
         int[] path = new int[nodes.size()];
         int[] cost = new int[nodes.size()];
         Arrays.fill(cost, 10000);
@@ -73,7 +74,7 @@ public class GraphSolution implements ComputePath{
         Node n = end;
         while(n != beg){
             pointList.add(n);
-            n = graph.nodes().get(paths[n.number()]);
+            n = nodes.get(paths[n.number()]);
             player.setLocation(n.getPoint());
         }
         pointList.add(n);
