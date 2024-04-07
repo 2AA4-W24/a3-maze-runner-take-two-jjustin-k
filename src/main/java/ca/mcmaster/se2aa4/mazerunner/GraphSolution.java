@@ -42,8 +42,9 @@ public class GraphSolution implements ComputePath{
     }
 
     private int[] dijkstra(){
-        int[] path = new int[graph.nodes().size()];
-        int[] cost = new int[graph.nodes().size()];
+        List<Node> nodes = graph.nodes();
+        int[] path = new int[nodes.size()];
+        int[] cost = new int[nodes.size()];
         Arrays.fill(cost, 10000);
         cost[beg.number()] = 0;
         Arrays.fill(path, 10000);

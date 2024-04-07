@@ -8,6 +8,8 @@ public class RightHand implements ComputePath {
 
     private final Player player;
 
+    private final Path solution = new Path("");
+
     public RightHand(Maze userMaze){
         maze = userMaze;
         player = new Player(maze);

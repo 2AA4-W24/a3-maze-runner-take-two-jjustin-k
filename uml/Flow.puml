@@ -3,8 +3,6 @@
 
 autonumber
 
-
-
 Main -> MazeExplorer: initialize()
 MazeExplorer -> Maze: <<create>> (userMaze)
 Maze -> MazeExplorer: (Maze: maze)
@@ -29,6 +27,17 @@ MazeExplorer -> Main
 
 else
 
+MazeExplorer -> ComputePath: solve(String: method)
+ComputePath -> MazeExplorer: (Path : solution)
+MazeExplorer -> Main: solution
+
+
+end
+
+
+@enduml
+Strings: userMaze, userPath, method,  baseline
+
 alt method is rightHand
 MazeExplorer -> RightHand: <<create>> (maze)
 RightHand -> Player: <<create>> (maze)
@@ -51,9 +60,3 @@ MazeExplorer -> RightHand: solve(method)
 RightHand -> RightHand: solve()
 RightHand -> MazeExplorer: (Path : solution))
 end
-
-end
-
-
-@enduml
-Strings: userMaze, userPath, method,  baseline
