@@ -20,7 +20,7 @@ public class BaseLine {
         baselinePath.changeForm();
         String baselineString = baselinePath.getPath();
         System.out.println("Baseline execution time " + (finish2 - start2)  + " ms");
-        float speedUp = (float) methodString.length() / baselineString.length();
+        float speedUp = (float) baselineString.length() / methodString.length();
         System.out.printf("%.2f", speedUp);
         System.out.println();
     }

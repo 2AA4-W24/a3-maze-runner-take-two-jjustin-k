@@ -8,35 +8,35 @@ public class VerifyPath {
 
     private final Path path;
 
-    private final Player player = new Player();
+    private final Player player;
 
     public VerifyPath(Maze userMaze, Path userPath){
         maze = userMaze;
         path = userPath;
+        player = new Player(maze);
     }
 
     private boolean verify(Point start, Point end){
-        player.setLocation(maze, start);
-        Movement movement = new Movement(player, maze);
+        player.setLocation(start);
         String rawPath = path.getPath();
         int len = rawPath.length();
         for(int i = 0; i < len; i++){
             if(rawPath.charAt(i) == 'F'){
-                if(movement.canMove()){
-                    movement.move();
+                if(player.canMove()){
+                    player.move();
                 }
                 else{
                     return false;
                 }
             }
             else if(rawPath.charAt(i) == 'R'){
-                movement.turnRight();
+                player.turnRight();
             }
             else if(rawPath.charAt(i) == 'L'){
-                movement.turnLeft();
+                player.turnLeft();
             }
         }
-        Point playerLoc = player.location(maze);
+        Point playerLoc = player.location();
         return Arrays.equals(playerLoc.getCoords(),end.getCoords());
     }
 
