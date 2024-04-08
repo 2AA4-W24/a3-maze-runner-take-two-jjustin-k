@@ -47,7 +47,7 @@ My program reacts to these four flags
 
 #### Flag Priority
 
-The -i flag must be used for every run.  The rest of the flags are prioritized in this order:
+The -i flag must be used for every run.  The rest of the flags are prioritized in this order given below:
 - If a path is given, the program will print "correct" or "incorrect" on the standard output, depending on its validity.
 - If the baseline flag is used, the method flag must also be used to have two solutions to compare.  The program will print the speed to load the maze, the speed to solve the maze using the "method", the speed to solve the maze using "baseline" and the SpeedUp.
 - If the method flag is used, the program will print the solution of the maze using given method (righthand, graph).
