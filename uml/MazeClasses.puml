@@ -3,6 +3,7 @@
 
 class Main
 class MazeExplorer
+class Baseline
 class Point
 class Path
 class Player
@@ -20,6 +21,8 @@ interface Graph
 
 Main <-- MazeExplorer
 MazeExplorer o--> ComputePath
+Baseline --> MazeExplorer
+Baseline *--> ComputePath
 MazeExplorer ..> Maze
 MazeExplorer o--> VerifyPath
 Maze o--> Point
