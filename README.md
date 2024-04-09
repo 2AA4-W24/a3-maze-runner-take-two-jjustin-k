@@ -13,7 +13,7 @@ This program was built on top of my first assignment, which was to solve any maz
 In this assignment, I used all my knowledge gained from this course to improve my original code, as well as use a 
 graphing algorithm to find the shortest path to solve the maze.  The Business Logic Specification below was provided by the professor of SFWRENG 2AA4.
 
-### Business Logic Specification
+## Business Logic Specification
 
 This program explores a maze, finding a path from an entry point to an exit one.
 
@@ -34,9 +34,9 @@ This program explores a maze, finding a path from an entry point to an exit one.
     - For this assignment, the path does not have to be the shortest one.
 - The program can take a path as input and verify if it's a legit one.
 
-### Delivered version
+## Delivered version
 
-#### Command line arguments
+### Command line arguments
 
 My program reacts to these four flags
 
