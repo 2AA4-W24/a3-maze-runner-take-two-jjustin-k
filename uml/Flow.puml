@@ -3,29 +3,36 @@
 
 autonumber
 
-Main -> MazeExplorer: initialize()
+Main -> Main: initialize()
+Main -> Path: <<create>> (userPath)
+Path -> Main: (Path : p)
+Main -> MazeExplorer: <<create>> (userMaze)
+
 MazeExplorer -> Maze: <<create>> (userMaze)
 Maze -> MazeExplorer: (Maze: maze)
 
 
 alt userPath not null
 
-Main -> Path: <<create>> (userPath)
 
-Path -> Main: (Path : p)
 
 MazeExplorer -> VerifyPath: verify(Path : p)
 VerifyPath -> MazeExplorer: boolean
 MazeExplorer -> Main: boolean
 
 else baseline not null
-
-MazeExplorer -> Baseline: compare(String: baseline, method)
-
+MazeExplorer -> MazeExplorer: compare(String: baseline, method)
+MazeExplorer -> RightHand: <<create>>
+RightHand -> MazeExplorer: RightHand: baseline
+MazeExplorer -> GraphSolution: <<create>>
+GraphSolution -> MazeExplorer: GraphSolution: method
+MazeExplorer -> Baseline: <<create>> (baseline)
+Baseline -> MazeExplorer: Baseline: base
+Baseline -> Baseline: speedUp(method)
 Baseline -> MazeExplorer
 MazeExplorer -> Main
 
-else
+else solve maze
 
 MazeExplorer -> GraphSolution: solve(String: method)
 GraphSolution -> Player : <<create>>
