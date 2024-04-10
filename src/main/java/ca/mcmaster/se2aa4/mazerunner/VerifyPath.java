@@ -41,7 +41,10 @@ public class VerifyPath {
     }
 
     public boolean verify(){
-        if (path.isFactored()){
+        if(maze.isEmpty()){
+            return false;
+        }
+        else if (path.isFactored()){
             path.changeForm();
         }
 

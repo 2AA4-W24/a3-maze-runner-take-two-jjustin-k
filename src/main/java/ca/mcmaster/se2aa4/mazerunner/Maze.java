@@ -37,11 +37,11 @@ public class Maze {
             mappings.add(row);
             i++;
         }
-        i =0;
-        for(List<Point> list : mappings){
-            if(list.size() != mappings.get(0).size()){
+        i = 0;
+        for (List<Point> list : mappings) {
+            if (list.size() != mappings.get(0).size()) {
                 int j = list.size();
-                while(list.size() != mappings.get(0).size()){
+                while (list.size() != mappings.get(0).size()) {
                     list.add(new Point(i, j, ' '));
                     j++;
                 }
@@ -49,6 +49,7 @@ public class Maze {
             i++;
         }
         reader.close();
+
         return mappings;
     }
 
@@ -57,9 +58,8 @@ public class Maze {
         for (int idx = 0; idx < line.length(); idx++) {
             if (line.charAt(idx) == '#') {
                 row.add(new Point(i, idx, '#'));
-            }
-            else if (line.charAt(idx) == ' ' || line.charAt(idx) == 0) {
-                row.add(new Point(i, idx,' '));
+            } else if (line.charAt(idx) == ' ' || line.charAt(idx) == 0) {
+                row.add(new Point(i, idx, ' '));
             }
         }
         return row;
@@ -134,6 +134,10 @@ public class Maze {
 
     public double readTime(){
         return read;
+    }
+
+    public boolean isEmpty(){
+        return mazeMap.isEmpty();
     }
 
 

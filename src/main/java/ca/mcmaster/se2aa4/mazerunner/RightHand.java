@@ -17,6 +17,9 @@ public class RightHand implements ComputePath {
 
     @Override
     public Path solve() {
+        if(maze.isEmpty()){
+            return solution;
+        }
         startPath();
         Point endLocation = maze.eastCoords();
         while(!Arrays.equals(player.location().getCoords(), endLocation.getCoords())){

@@ -37,14 +37,12 @@ GraphSolution --> Graph
 GraphSolution ..> Player
 GraphSolution ..> GraphBuilder
 GraphBuilder *--> Graph
-
 Baseline *--> ComputePath
-
 Maze *--> Point
-
 ComputePath ..> Path
-
 Edge *--> Node
 Player o-- Movement
+
+
 
 @enduml

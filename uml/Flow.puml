@@ -27,8 +27,20 @@ MazeExplorer -> Main
 
 else
 
-MazeExplorer -> ComputePath: solve(String: method)
-ComputePath -> MazeExplorer: (Path : solution)
+MazeExplorer -> GraphSolution: solve(String: method)
+GraphSolution -> Player : <<create>>
+Player -> GraphSolution : Player : player
+GraphSolution -> GraphBuilder: <<create>>
+
+GraphBuilder -> Graph: <<create>>
+Graph -> GraphBuilder: Graph: graph
+GraphBuilder -> GraphBuilder: build()
+
+GraphBuilder -> GraphSolution: graph
+
+
+
+GraphSolution -> MazeExplorer: (Path : solution)
 MazeExplorer -> Main: solution
 
 
@@ -36,27 +48,3 @@ end
 
 
 @enduml
-Strings: userMaze, userPath, method,  baseline
-
-alt method is rightHand
-MazeExplorer -> RightHand: <<create>> (maze)
-RightHand -> Player: <<create>> (maze)
-Player -> Movement: <<create>>
-Movement -> Player: (Movement: move)
-Player -> RightHand: (Player: player)
-RightHand -> MazeExplorer: (ComputePath: computation)
-MazeExplorer -> RightHand: solve(method)
-RightHand -> RightHand: solve()
-RightHand -> MazeExplorer: (Path : solution))
-
-else method is graph
-MazeExplorer -> RightHand: <<create>> (maze)
-RightHand -> Player: <<create>>
-Player -> Movement: <<create>>
-Movement -> Player: (Movement: move)
-Player -> RightHand: (Player: player)
-RightHand -> MazeExplorer: (ComputePath: computation)
-MazeExplorer -> RightHand: solve(method)
-RightHand -> RightHand: solve()
-RightHand -> MazeExplorer: (Path : solution))
-end
