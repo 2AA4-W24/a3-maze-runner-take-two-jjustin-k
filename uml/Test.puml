@@ -19,28 +19,32 @@ class RightHand
 interface ComputePath
 interface Graph
 
-Main <-- MazeExplorer
-MazeExplorer o--> ComputePath
-Baseline <-- MazeExplorer
-Baseline *--> ComputePath
-MazeExplorer ..> Maze
-MazeExplorer *--> VerifyPath
-Maze *--> Point
-VerifyPath --> Player
-RightHand --> Player
-ComputePath ..> Path
-VerifyPath ..> Path
-RightHand ..|> ComputePath
-GraphSolution ..|> ComputePath
-Player o--> Movement
-GraphSolution <-- GraphBuilder
-GraphBuilder *--> Graph
-GraphSolution ..> Graph
-GraphSolution --> Player
-AdjacencyList ..|> Graph
-AdjacencyList *--> Node
-Edge *--> Node
-AdjacencyList o--> Edge
+Main o-- MazeExplorer
 
+MazeExplorer ..> Maze
+MazeExplorer o-- ComputePath
+MazeExplorer o-- Baseline
+MazeExplorer *-- VerifyPath
+VerifyPath ..> Path
+
+RightHand ..|> ComputePath
+RightHand ..> Player
+Graph *--> Node
+Graph o--> Edge
+Graph <|.. AdjacencyList
+GraphSolution ..|> ComputePath
+GraphSolution --> Graph
+GraphSolution ..> Player
+GraphSolution ..> GraphBuilder
+GraphBuilder *--> Graph
+
+Baseline *--> ComputePath
+
+Maze *--> Point
+
+ComputePath ..> Path
+
+Edge *--> Node
+Player o-- Movement
 
 @enduml
