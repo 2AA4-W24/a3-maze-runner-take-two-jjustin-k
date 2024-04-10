@@ -8,21 +8,31 @@ public class BaseLine {
     }
 
     public void speedUp(ComputePath path2){
+        Path methodPath = speedOne(path2);
+        methodPath.changeForm();
+        String methodString = methodPath.getPath();
+        Path baselinePath = baseSpeed();
+        baselinePath.changeForm();
+        String baselineString = baselinePath.getPath();
+        float speedUp = (float) baselineString.length() / methodString.length();
+        System.out.printf("SpeedUp = %.2f", speedUp);
+        System.out.println();
+    }
+
+    private Path speedOne(ComputePath path2){
         double start1 = System.currentTimeMillis();
         Path methodPath = path2.solve();
         double finish1 = System.currentTimeMillis();
         System.out.println("Method execution time " + (finish1 - start1) + " ms");
-        methodPath.changeForm();
-        String methodString = methodPath.getPath();
+        return methodPath;
+    }
+
+    private Path baseSpeed(){
         double start2 = System.currentTimeMillis();
         Path baselinePath = path.solve();
         double finish2 = System.currentTimeMillis();
-        baselinePath.changeForm();
-        String baselineString = baselinePath.getPath();
         System.out.println("Baseline execution time " + (finish2 - start2)  + " ms");
-        float speedUp = (float) baselineString.length() / methodString.length();
-        System.out.printf("%.2f", speedUp);
-        System.out.println();
+        return baselinePath;
     }
 
 }

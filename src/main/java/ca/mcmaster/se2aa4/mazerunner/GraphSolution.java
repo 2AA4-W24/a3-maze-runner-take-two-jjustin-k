@@ -34,6 +34,9 @@ public class GraphSolution implements ComputePath{
     }
 
     private Path startPath(){
+        if(maze.isEmpty()){
+            return path;
+        }
         Point coords = maze.eastCoords();
         player.setLocation(coords);
         player.setDirection(Player.Direction.E);
