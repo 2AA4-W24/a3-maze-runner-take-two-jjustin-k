@@ -18,6 +18,7 @@ class Movement
 class RightHand
 interface ComputePath
 interface Graph
+enum Direction
 
 Main o-- MazeExplorer
 
@@ -26,7 +27,7 @@ MazeExplorer o-- ComputePath
 MazeExplorer o-- Baseline
 MazeExplorer *-- VerifyPath
 VerifyPath ..> Path
-
+Direction o-- Player
 RightHand ..|> ComputePath
 RightHand ..> Player
 Graph *--> Node

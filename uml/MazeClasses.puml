@@ -18,6 +18,7 @@ class Movement
 class RightHand
 interface ComputePath
 interface Graph
+Enum Direction
 
 Main <-- MazeExplorer
 MazeExplorer o--> ComputePath

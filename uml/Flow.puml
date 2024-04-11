@@ -23,12 +23,12 @@ MazeExplorer -> Main: boolean
 else baseline not null
 MazeExplorer -> MazeExplorer: compare(String: baseline, method)
 MazeExplorer -> RightHand: <<create>>
-RightHand -> MazeExplorer: RightHand: baseline
+RightHand -> MazeExplorer: RightHand: path1
 MazeExplorer -> GraphSolution: <<create>>
-GraphSolution -> MazeExplorer: GraphSolution: method
+GraphSolution -> MazeExplorer: GraphSolution: path2
 MazeExplorer -> Baseline: <<create>> (baseline)
 Baseline -> MazeExplorer: Baseline: base
-Baseline -> Baseline: speedUp(method)
+Baseline -> Baseline: speedUp(path2)
 Baseline -> MazeExplorer
 MazeExplorer -> Main
 
