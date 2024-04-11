@@ -10,29 +10,50 @@ public class GraphBuilderTest {
 
     private final Maze maze = new Maze("./examples/tiny.maz.txt");
 
-    private Graph graph;
+    private final Maze maze2 = new Maze("./examples/small.maz.txt");
 
-    private List<Node> nodes;
+    private Graph graphTiny;
+
+    private Graph graphSmall;
+
+    private List<Node> nodesTiny;
+
+    private List<Node> nodesSmall;
 
     public GraphBuilderTest() throws IOException {
     }
 
     @BeforeEach
     void setUp(){
-        GraphBuilder graphBuilder = new GraphBuilder(maze);
-        graph = graphBuilder.build();
-        nodes = graph.nodes();
+        GraphBuilder graphBuilderTiny = new GraphBuilder(maze);
+        graphTiny = graphBuilderTiny.build();
+        nodesTiny = graphTiny.nodes();
+        GraphBuilder graphBuilderSmall = new GraphBuilder(maze2);
+        graphSmall = graphBuilderSmall.build();
+        nodesSmall = graphSmall.nodes();
     }
 
     @Test
-    void nodes(){
+    void nodesTiny(){
         int numberOfNodes = 15;
-        Assertions.assertEquals(numberOfNodes, nodes.size());
+        Assertions.assertEquals(numberOfNodes, nodesTiny.size());
     }
 
     @Test
-    void edges(){
+    void edgesTiny(){
         int endEdges = 4;
-        Assertions.assertEquals(endEdges, graph.edgeList(nodes.get(nodes.size() -1)).size());
+        Assertions.assertEquals(endEdges, graphTiny.edgeList(nodesTiny.get(nodesTiny.size() -1)).size());
+    }
+
+    @Test
+    void nodesSmall(){
+        int numberOfNodes = 42;
+        Assertions.assertEquals(numberOfNodes, nodesSmall.size());
+    }
+
+    @Test
+    void edgesSmall(){
+        int endEdges = 1;
+        Assertions.assertEquals(endEdges, graphSmall.edgeList(nodesSmall.get(nodesSmall.size() -1)).size());
     }
 }
